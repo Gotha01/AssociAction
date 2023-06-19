@@ -22,3 +22,12 @@ I'm a junior Python developer who try to code his life with a better framework t
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/quentin-faure-b818221b9/)
 [![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/Q_Faure/)
 
+---
+## Tools
+
+<p align="top left">
+  <img src="https://www.djangoproject.com/m/img/logos/django-logo-negative.svg" alt="Django" width="200" height="100">
+</p>
+<p align="top right">
+  <img src="https://github.com/tus/official-images-docs/blob/master/mysql/logo.png?raw=true" alt="Django" width="200" height="90">
+</p>
