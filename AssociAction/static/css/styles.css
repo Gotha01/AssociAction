@@ -6,7 +6,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
-  --bs-blue: #0d6efd;
+  --bs-blue: #107aca;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
   --bs-pink: #d63384;
@@ -2183,7 +2183,7 @@ progress {
 .form-control:focus {
   color: #212529;
   background-color: #fff;
-  border-color: #86b7fe;
+  /*border-color: #86b7fe;*/
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
@@ -2359,7 +2359,7 @@ textarea.form-control-lg {
   }
 }
 .form-select:focus {
-  border-color: #86b7fe;
+  /*border-color: #86b7fe;*/
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
@@ -2426,7 +2426,7 @@ textarea.form-control-lg {
   filter: brightness(90%);
 }
 .form-check-input:focus {
-  border-color: #86b7fe;
+  /*border-color: #86b7fe;*/
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
@@ -3939,6 +3939,8 @@ textarea.form-control-lg {
   justify-content: space-between;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  background-color: #107ACA;
+  color: #fff;
 }
 .navbar > .container,
 .navbar > .container-fluid,
@@ -3959,6 +3961,7 @@ textarea.form-control-lg {
   font-size: 1.25rem;
   text-decoration: none;
   white-space: nowrap;
+  color: #fff;
 }
 .navbar-nav {
   display: flex;
@@ -10835,5 +10838,3 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-
-/*# sourceMappingURL=bootstrap.css.map */
