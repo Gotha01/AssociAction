@@ -1,3 +1,52 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from authentication.models import CustomUser, Role, Address
 
-# Register your models here.
+class CustomUserAdmin(UserAdmin):
+    list_display = (
+        'id',
+        'email',
+        'username',
+        'first_name',
+        'last_name',
+        'phone_number',
+        'is_sex',
+        'date_of_birth',
+        'address',
+        'is_active',
+        'is_staff',
+        'is_superuser',
+        'date_joined',
+    )
+    list_filter = (
+        'username', 'last_name', 'is_active', 'is_superuser', 'date_joined'
+    )
+
+class CustomAddressAdmin(UserAdmin):
+    list_display = (
+        'idaddress',
+        'postalcode',
+        'cityname',
+        'addresslineone',
+        'addresslinetwo',
+    )
+    list_filter = (
+        'postalcode',
+        'cityname',
+    )
+
+class CustomRoleAdmin(UserAdmin):
+    list_display = (
+        'idrole',
+        'rolename',
+        'rolepermission',
+        'description',
+    )
+    list_filter = (
+        'rolename',
+        'rolepermission',
+    )
+
+admin.site.register(CustomUser)
+admin.site.register(Address)
+admin.site.register(Role)

@@ -12,8 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+import dev_config as dc
+
 # Custom authentication
-# AUTH_USER_MODEL = 'authentication.User'
+AUTH_USER_MODEL = 'authentication.CustomUser'
+LOGIN_REDIRECT_URL = 'home'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,10 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-j(3v_z-2+!atl@l++hqws$44r^n22cc^pz+*c%9a9k!es-ciy2'
+SECRET_KEY = dc.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = dc.DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -87,11 +90,11 @@ WSGI_APPLICATION = 'AssociAction.wsgi.application'
 DATABASES = {
     "default": {
         'ENGINE': "django.db.backends.mysql",
-        'NAME' : 'dbassociaction',
-        'USER' : 'root',
-        'PASSWORD' : os.environ.get('AssociAction'), 
-        'HOST' : 'localhost',
-        'PORT' : '3306',
+        'NAME' : dc.DB_NAME, 
+        'USER' : dc.DB_USER,
+        'PASSWORD' : dc.DB_PASSWORD, 
+        'HOST' : dc.DB_HOST,
+        'PORT' : dc.DB_PORT,
     }
 }
 
