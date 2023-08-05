@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser as BaseUser, BaseUserMan
 from django.db import models
 from django.utils import timezone
 
+from AssociAction.settings import AUTH_USER_MODEL
 
 class Role(models.Model):
     idrole = models.IntegerField(primary_key=True)
@@ -15,7 +16,6 @@ class Role(models.Model):
     def __str__(self):
         return self.rolename
     
-from django.db import models
 
 class Address(models.Model):
     idaddress = models.IntegerField(primary_key=True)
@@ -30,13 +30,19 @@ class Address(models.Model):
     def __str__(self):
         return f"{self.addresslineone}, {self.cityname}"
 
+class UserAddress(models.Model):
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    address = models.ForeignKey(Address, null=True, on_delete=models.SET_NULL)
 
 class UserManager(UserManager):
     def create_user(self, first_name, last_name, username, email, password=None):
         if not email:
             raise ValueError('User must have an email address')
         if not username:
-            raise ValueError('User must have an usernam')
+            raise ValueError('User must have an username')
+        if self.filter(email=email).exists():
+            raise ValueError('This email is already in use')
+        
         user = self.model(
             email = self.normalize_email(email),
             username = username,
@@ -70,20 +76,13 @@ class CustomUser(BaseUser):
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=10, null=True, blank=True)
-    user_img = models.ImageField(null=True, blank=True)
+    user_img = models.ImageField(upload_to='user_image/', null=True, blank=True)
     id_sex = models.IntegerField(null=True, blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
     date_joined = models.DateTimeField(default=timezone.now)
-     # Relationship field with Address
-    address = models.ForeignKey(
-        Address, 
-        on_delete=models.SET_NULL, 
-        null=True, 
-        blank=True
-    )
      # Permission fields
     is_admin = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     
@@ -100,3 +99,10 @@ class CustomUser(BaseUser):
     
     def has_module_perms(self, app_label):
         return True
+    
+    def get_address(self):
+        try:
+            user_address = UserAddress.objects.get(user=self)
+            return user_address.address
+        except UserAddress.DoesNotExist:
+            return None

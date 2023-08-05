@@ -135,3 +135,6 @@ cython_debug/
 
 #config
 dev_config.py
+
+#user images
+media/

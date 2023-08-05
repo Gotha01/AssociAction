@@ -1,0 +1,103 @@
+{% extends 'general_views/base.html' %}
+{% load static %}
+
+{% block content %}        
+<main>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-md-10 col-sm-12">
+                <h1 class="text-center text-secondary pb-4">Modification du profil</h1>
+                <div class="card border-0 mb-4 p-4 bg-info">
+                    <h3 class="text-center text-warning">Changer la photo de profile</h3>
+                    <div class='row'>
+                        <div class="col-3 px-4">
+                        {% if user_form.instance.user_img %}
+                            <img src="{{ user_form.instance.user_img.url }}" class="card-img-top" alt="Profile Image">
+                        {% else %}
+                            <img src="{% static 'img/default_profile.png' %}" class="card-img-top" style="max-width:100%;" alt="Default Image">
+                        {% endif %}
+                        </div>
+                        <div class="col-9">
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group text-center pt-5" style="height:100px;">
+                                    {% if user_form.instance.user_img %}
+                                        <p>Image actuelle : {{ user_form.instance.user_img.name }}</p>
+                                    {% else %}
+                                        <p>Aucun fichier choisi</p>
+                                    {% endif %}
+                                    <div style="height:40px;">{{ img_form.user_img }}</div>
+                                    <div class="row">
+                                        <div class="col-2"></div>
+                                        <label for="id_user_img" class="col-4 btn btn-dark mb-2" style="height:40px;">Choisir une nouvelle image</label>
+                                        <div class="col-1"></div>
+                                        <button type="submit" class="col-4 btn btn-dark" style="height:40px;">Changer d'image de profil</button>
+                                        <div class="col-1"></div>
+                                    </div>    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group p-4">
+                    <div class="row">
+                        <div class="col-md-6 p-3">
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <h3 class="text-center text-warning">Informations Générales</h3>
+                                {% for field in user_form.visible_fields %}
+                                <div class="form-group">
+                                    <label for="{{ field.id_for_label }}" class="mb-3 pt-2" style="font-weight:bold;">{{ field.label }}</label>
+                                    <div class='text-center'>{{ field }}</div>
+                                    {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                    {% if field.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in field.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                                <div class="text-center pt-4">
+                                    <p class="text-center py-0">Champs obligatoires "*"</p>
+                                    <button type="submit" name="save_user_form" class="btn btn-primary">Enregistrer les informations</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-md-6 p-3">
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <h3 class="text-center text-warning">Localisation</h3>
+                                {% for field in address_form.visible_fields %}
+                                <div class="form-group">
+                                    <label for="{{ field.id_for_label }}" class="mb-3" style="font-weight:bold;">{{ field.label }}</label>
+                                    <div class='text-center'>{{ field }}</div>
+                                    {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                    {% if field.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in field.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                                <div class="text-center pt-2">
+                                    <p class="text-center py-0">Champs obligatoires "*"</p>
+                                    <button type="submit" name="save_address_form" class="btn btn-primary">Enregistrer l'adresse</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -16,6 +16,7 @@ import dev_config as dc
 
 # Custom authentication
 AUTH_USER_MODEL = 'authentication.CustomUser'
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -137,6 +138,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Default primary key field type

@@ -17,8 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from general_views import views as gv
+from authentication import views as authv
+from association import views as assoviews
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', gv.home, name='home'),
+    path('login/', authv.LoginPageView.as_view(), name='login'),
+    path('logout/', authv.logout_view, name='logout'),
+    path('profile/', authv.profile_view, name='profile'),
+    path('profile_update/', authv.update_profile_view, name='update_profile'),
+    path('association/<int:association_id>/', assoviews.association_detail, name='association_detail'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

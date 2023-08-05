@@ -21,6 +21,7 @@ class CustomUserAdmin(UserAdmin):
     list_filter = (
         'username', 'last_name', 'is_active', 'is_superuser', 'date_joined'
     )
+    list_per_page = 25
 
 class CustomAddressAdmin(UserAdmin):
     list_display = (
@@ -34,6 +35,7 @@ class CustomAddressAdmin(UserAdmin):
         'postalcode',
         'cityname',
     )
+    list_per_page = 25
 
 class CustomRoleAdmin(UserAdmin):
     list_display = (

@@ -2,24 +2,81 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h1>Login</h1>
-            <form method="post">
-                {% csrf_token %}
-                {{ login_form.as_p }}
-                <button type="submit" class="btn btn-primary" name="login_submit">Login</button>
-            </form>
+<main>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <p class="col-8 text-center text-primary mx-5" style="">
+                Pour pouvoir accéder à vos informations de profile ou vous signalez comme adhérent, veuillez vous inscrire ou vous connecter à votre compte existant.
+            </p>
         </div>
-        <div class="col-md-6">
-            <h1>Register</h1>
-            <form method="post">
-                {% csrf_token %}
-                {{ registration_form.as_p }}
-                <button type="submit" class="btn btn-primary" name="register_submit">Register</button>
-            </form>
+        <div class="row justify-content-center">
+            <div class="col-4 border">
+                <h1 class="text-center pb-4">{{ login_form.form_title }}</h1>
+                {% if message %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group p-4">
+                        <div class="row">
+                            {% for field in login_form %}
+                                <div class="col-12 py-2 text-center">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                </div>
+                                <div class="col-12 text-center">{{ field }}</div>
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                {% elif field.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in field.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="text-center pt-2">
+                        <button style="font-weight: bolder;" type="submit" class="btn btn-primary m-4" name="login_submit">Se connecter</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-4 border">
+                <h1 class="text-center">{{ registration_form.form_title }}</h1>
+                {% if registration_success %}
+                    <div class="alert alert-success" role="alert">
+                        Votre compte a été créé avec succès. Veuillez vous connecter avec vos identifiants.
+                    </div>
+                {% endif %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="row">
+                            {% for field in registration_form %}
+                            <div class="col-12 text-center">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            </div>
+                            <div class="col-12 text-center">{{ field }}</div>
+                            {% if field.help_text %}
+                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                            {% elif field.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in field.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="text-center pt-2">
+                            <button type="submit" class="btn btn-primary" name="register_submit">S'enregistrer</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+</main>
 {% endblock %}

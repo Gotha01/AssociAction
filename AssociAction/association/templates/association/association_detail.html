@@ -1,0 +1,14 @@
+{% extends 'general_views/base.html' %}
+
+{% block content %}
+<main>
+  <section>
+    <h1>{{ association.associationname }}</h1>
+    <p>Acronym: {{ association.acronym }}</p>
+    <p>Phone: {{ association.phone }}</p>
+    <p>Email: {{ association.email }}</p>
+    <p>Description: {{ association.description }}</p>
+    <!-- Ajoutez d'autres détails d'association ici si nécessaire -->
+  </section>
+</main>
+{% endblock %}
