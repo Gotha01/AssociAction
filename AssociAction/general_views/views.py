@@ -6,3 +6,6 @@ def home(request):
     form = SearchForm()
     context = {'form': form}
     return render(request, "general_views/home.html", context)
+
+def help_center(request):
+    pass

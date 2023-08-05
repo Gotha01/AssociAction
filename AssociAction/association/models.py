@@ -3,6 +3,7 @@ from authentication.models import CustomUser, Role, Address
 
 
 class Sector(models.Model):
+    """Class to define associative sectors"""
     idsector = models.IntegerField(primary_key=True)
     sectorname = models.CharField(max_length=100, unique=True)
 
@@ -13,6 +14,7 @@ class Sector(models.Model):
         db_table = 'sector'
 
 class Association(models.Model):
+    """Class for association information"""
     associationname = models.CharField(max_length=200, unique=True)
     acronym = models.CharField(max_length=10, null=True, blank=True)
     phone_number = models.CharField(max_length=10, null=True, blank=True)
@@ -33,6 +35,7 @@ class Association(models.Model):
         db_table = 'association'
 
 class association_address(models.Model):
+    """Class defining association's address"""
     association = models.ForeignKey(Association, on_delete=models.CASCADE)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
 
@@ -40,6 +43,7 @@ class association_address(models.Model):
         db_table = 'association_address'
 
 class UserRoleAssociation(models.Model):
+    """Class used to define the user's role in the association"""
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     association = models.ForeignKey(Association, on_delete=models.CASCADE)
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
@@ -48,6 +52,7 @@ class UserRoleAssociation(models.Model):
         db_table = 'user_role_association'
 
 class AssociationSector(models.Model):
+    """Class defining a user's role in an association"""
     association = models.ForeignKey(Association, on_delete=models.CASCADE)
     sector = models.ForeignKey(Sector, on_delete=models.CASCADE)
     

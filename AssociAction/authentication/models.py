@@ -5,6 +5,7 @@ from django.utils import timezone
 from AssociAction.settings import AUTH_USER_MODEL
 
 class Role(models.Model):
+    """Class defining all possible user roles"""
     idrole = models.IntegerField(primary_key=True)
     rolename = models.CharField(max_length=100, unique=True)
     rolepermission = models.IntegerField()
@@ -18,6 +19,7 @@ class Role(models.Model):
     
 
 class Address(models.Model):
+    """General class for all addresses (users, associations, events)"""
     idaddress = models.IntegerField(primary_key=True)
     postalcode = models.IntegerField()
     cityname = models.CharField(max_length=100)
@@ -31,6 +33,7 @@ class Address(models.Model):
         return f"{self.addresslineone}, {self.cityname}"
 
 class UserAddress(models.Model):
+    """Class used to model the relationship between users and their address"""
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     address = models.ForeignKey(Address, null=True, on_delete=models.SET_NULL)
 
