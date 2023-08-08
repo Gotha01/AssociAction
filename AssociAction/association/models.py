@@ -35,7 +35,7 @@ class Association(models.Model):
     class Meta:
         db_table = 'association'
 
-class association_address(models.Model):
+class AssociationAddress(models.Model):
     """Class defining association's address"""
     association = models.ForeignKey(Association, on_delete=models.CASCADE)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
@@ -59,8 +59,3 @@ class AssociationSector(models.Model):
     
     class Meta:
         db_table = 'sector_association'
-
-class AssociationEvent(models.Model):
-    """Class for linking events and associations"""
-    association = models.ForeignKey(Association, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)

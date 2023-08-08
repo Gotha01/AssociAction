@@ -1,6 +1,6 @@
 from django.db import models
-from association.models import Association
 from authentication.models import Address
+from association.models import Association
 
 class Event(models.Model):
     """Event information class"""
@@ -15,3 +15,14 @@ class EventAddress(models.Model):
     """Class to model the relationship between events and its address"""
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    
+    class Meta:
+        db_table = 'event_address'
+    
+class AssociationEvent(models.Model):
+    """Class for linking events and associations"""
+    association = models.ForeignKey(Association, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'event_association'

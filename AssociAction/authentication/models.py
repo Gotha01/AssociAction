@@ -16,7 +16,6 @@ class Role(models.Model):
 
     def __str__(self):
         return self.rolename
-    
 
 class Address(models.Model):
     """General class for all addresses (users, associations, events)"""
@@ -70,7 +69,6 @@ class UserManager(UserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
-
 
 class CustomUser(BaseUser):
      # Common Fields
