@@ -1,5 +1,6 @@
 from django.db import models
 from authentication.models import CustomUser, Role, Address
+from events.models import Event
 
 
 class Sector(models.Model):
@@ -58,3 +59,8 @@ class AssociationSector(models.Model):
     
     class Meta:
         db_table = 'sector_association'
+
+class AssociationEvent(models.Model):
+    """Class for linking events and associations"""
+    association = models.ForeignKey(Association, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
