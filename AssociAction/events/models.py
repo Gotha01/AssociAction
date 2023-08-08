@@ -7,8 +7,7 @@ class Event(models.Model):
     event_name = models.CharField(max_length=200)
     date = models.DateField(auto_now=False, auto_now_add=False)
     description = models.CharField(max_length=400)
-    association = models.ForeignKey(Association, on_delete=models.CASCADE)
-
+    
     def __str__(self):
         return self.event_name
 
