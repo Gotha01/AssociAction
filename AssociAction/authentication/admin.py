@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from authentication.models import CustomUser, Role, Address
+from authentication.models import CustomUser, Role, Address, UserAddress
 
 class CustomUserAdmin(UserAdmin):
     list_display = (
@@ -25,7 +25,6 @@ class CustomUserAdmin(UserAdmin):
 
 class CustomAddressAdmin(UserAdmin):
     list_display = (
-        'idaddress',
         'postalcode',
         'cityname',
         'addresslineone',
@@ -49,6 +48,8 @@ class CustomRoleAdmin(UserAdmin):
         'rolepermission',
     )
 
+
 admin.site.register(CustomUser)
 admin.site.register(Address)
+admin.site.register(UserAddress)
 admin.site.register(Role)

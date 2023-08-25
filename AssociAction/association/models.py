@@ -1,11 +1,9 @@
 from django.db import models
 from authentication.models import CustomUser, Role, Address
-from events.models import Event
 
 
 class Sector(models.Model):
     """Class to define associative sectors"""
-    idsector = models.IntegerField(primary_key=True)
     sectorname = models.CharField(max_length=100, unique=True)
 
     def __str__(self):

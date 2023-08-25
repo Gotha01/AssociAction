@@ -1,0 +1,50 @@
+{% extends 'general_views/base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <p class="col-6 text-center text-primary mx-5" style="">
+                Pour pouvoir accéder à vos informations de profile ou vous signalez comme adhérent, veuillez vous inscrire ou vous connecter à votre compte existant.
+            </p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-8 border">
+                <h1 class="text-center pb-4">{{ login_form.form_title }}</h1>
+                {% if registration_message %}
+                    <div class="alert alert-success text-center" role="alert">
+                        {{ registration_message }}
+                    </div>
+                {% endif %}
+                {% if message %}
+                <div class="alert text-center m-0 px-md-5" role="alert">
+                    <ul class="alert alert-danger text-center mx-lg-5">
+                        <li style="list-style-type: none; font-weight:bold;">{{ message }}</li>
+                    </ul>
+                </div>
+                {% endif %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group p-4 pt-0">
+                        <div class="row">
+                            {% for field in login_form %}
+                                <div class="col-12 py-2 text-center">
+                                    <label for="{{ field.id_for_label }}" style="font-weight:bold;">{{ field.label }}</label>
+                                </div>
+                                <div class="col-12 text-center">{{ field }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="text-center pt-2">
+                        <button style="font-weight: bolder;" type="submit" class="btn btn-primary m-4" name="login_submit">Se connecter</button>
+                    </div>
+                    <div class="text-center pt-2">
+                        Vous voulez <a href="{% url 'register'%}">créer votre compte</a>?
+                    </div>
+                </form>   
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

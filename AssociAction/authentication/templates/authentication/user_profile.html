@@ -5,11 +5,23 @@
 <main>
     <div class="container mt-4">
         <div class="row justify-content-center">
+            {% if messages %}
+            <div class="messages col-8">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
             <div class="col-8 border p-3">
                 <h1 class="text-center pb-4">Profil de {{ user.username }}</h1>
                 <div class="row">
                     <div class="col-12 col-md-4 text-center">
-                        <img src="{% if user.user_img %}{{ user.user_img.url }}{% else %}{% static 'img/default_profile.png' %}{% endif %}" alt="Photo de profil" class="img-fluid">
+                        <img 
+                        src="{% if user.user_img %}{{ user.user_img.url }}{% else %}{% static 'img/default_profile.png' %}{% endif %}" 
+                        alt="Photo de profil" 
+                        class="img-fluid" style="height:200px; width:200px; object-fit: cover; border-radius:50%; overflow: hidden;">
                     </div>
                     <div class="col-12 col-md-8">
                         <div class="form-group p-4">
@@ -28,14 +40,20 @@
                                 </div>
                                 {% if user.date_of_birth %}
                                 <div class="col-12 py-2">
-                                    <label>Date de naissance</label>
+                                    <label>Date de naissance :</label>
                                     {{ user.date_of_birth }}
                                 </div>
                                 {% endif %}
                                 {% if user.phone_number %}
                                 <div class="col-12 py-2">
-                                    <label>Numéro de téléphone</label>
+                                    <label>Numéro de téléphone :</label>
                                     {{ user.phone_number }}
+                                </div>
+                                {% endif %}
+                                {% if address %}
+                                <div class="col-12 py-2">
+                                    <label>Adresse :</label>
+                                    {{ address }}
                                 </div>
                                 {% endif %}
                             </div>

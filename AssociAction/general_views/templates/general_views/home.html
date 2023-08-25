@@ -3,55 +3,70 @@
 
 {% block content %}
 {% include 'search/search.html' %}
-<section 
+<main>
+    {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <section 
     class="container-fluid"
     style="position:relative; top:-100px">
-    <div class="row">
-        <!--place for 3 events/associations links <div class="card"></div> -->
-    </div>
-</section>
-<section 
-  class="container-fluid" 
-  style="height:400px; padding:64px 0 24px;">
-    <div class="row">
-        <div class="col-12">
-            <h2 
-              class="fw-bold text-center" 
-              style="marging-bottom: 32px;">
-                AssociAction :</br>au service de votre vie associative
-            </h2>
+        <div class="row">
+            <!--place for 3 events/associations links <div class="card"></div> -->
         </div>
-    </div>
-    <div class="row pt-5 gx-4 gx-lg-5 justify-content-center">
-        <div 
-          class="card text-center border-0 col-3" 
-          style="width:400px;height:350px;" >
-            <div class="card-body" >
-                <img 
-                  class="card-img-top img-fluid" 
-                  style="width:auto; height:100px;" 
-                  src="{% static 'img/rechercher.png' %}" 
-                  alt="..."/>
-                <h3 class="card-title">
-                    Chercher une association
-                </h3>
-                <p class="card-texte">Par curiosité ou volonté de rejoindre une association, trouvez celle dont vous avez besoin.</p>
+    </section>
+    <section 
+    class="container-fluid" 
+    style="height:400px; padding:64px 0 24px;">
+        <div class="row">
+            <div class="col-12">
+                <h2 
+                class="fw-bold text-center" 
+                style="marging-bottom: 32px;">
+                    AssociAction :</br>au service de votre vie associative
+                </h2>
             </div>
         </div>
-        <div class="card text-center border-0" style="width:400px; height:350px;">
-            <div class="card-body">
-                <img class="img-fluid" style="width:auto; height:100px;" src="{% static 'img/evenement.png' %}" alt="..."/>
-                <h3 class="card-title">Participer à un évennement</h3>
-                <p class="card-texte">Si vous souhaiter participer aux rendez-vous, réunions et autres évènement de l'association de votre choix.</p>
+        <div class="row pt-5 gx-4 gx-lg-5 justify-content-center">
+            <div 
+            class="card text-center border-0 col-3" 
+            style="width:400px;height:350px;" >
+                <div class="card-body" >
+                    <img 
+                    class="card-img-top img-fluid" 
+                    style="width:auto; height:100px;" 
+                    src="{% static 'img/rechercher.png' %}" 
+                    alt="..."/>
+                    <h3 class="card-title">
+                        Chercher une association
+                    </h3>
+                    <p class="card-texte">Par curiosité ou volonté de rejoindre une association, trouvez celle dont vous avez besoin.</p>
+                </div>
+            </div>
+            <div 
+            class="card text-center border-0" 
+            style="width:400px; height:350px;">
+                <div class="card-body">
+                    <img class="img-fluid" style="width:auto; height:100px;" src="{% static 'img/evenement.png' %}" alt="..."/>
+                    <h3 class="card-title">Participer à un évennement</h3>
+                    <p class="card-texte">Si vous souhaiter participer aux rendez-vous, réunions et autres évènement de l'association de votre choix.</p>
+                </div>
+            </div>
+            <div 
+            class="card text-center border-0" 
+            style="width:400px; height:350px;">
+                <div class="card-body">
+                    <img class="img-fluid" style="width:auto; height:100px;" src="{% static 'img/demenager.png' %}" alt="..."/>
+                    <h3 class="card-title">Changer de ville sans changer d'activité</h3>
+                    <p class="card-texte">Déménagez en sachant que votre activité associative pourra se poursuivre dans votre prochain habitat.</p>
+                </div>
             </div>
         </div>
-        <div class="card text-center border-0" style="width:400px; height:350px;">
-            <div class="card-body">
-                <img class="img-fluid" style="width:auto; height:100px;" src="{% static 'img/demenager.png' %}" alt="..."/>
-                <h3 class="card-title">Changer de ville sans changer d'activité</h3>
-                <p class="card-texte">Déménagez en sachant que votre activité associative pourra se poursuivre dans votre prochain habitat.</p>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+</main>
 {% endblock %}

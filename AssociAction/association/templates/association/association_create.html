@@ -1,0 +1,27 @@
+{% extends 'general_views/base.html' %}
+
+{% block content %}
+<main>
+    <section class='container'>
+        <div class="row">
+            <h1 class="col-12 py-2 text-center">Créer une nouvelle association</h1>
+            <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class='row'>
+                {% for field in form %}
+                <div class="col-6 col-md-6 py-2 text-center">
+                    <label for="{{ field.id_for_label }}" style="font-weight: bold;">{{ field.label }}</label>
+                    <div class="text-center">{{ field }}</div>
+                </div>
+                {% endfor %}
+            </div>
+                <div class='row'>
+                    <div class="col-12 py-2 text-center">
+                        <button type="submit" class="btn btn-primary text-center">Créer l'association</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}

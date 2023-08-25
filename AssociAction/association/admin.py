@@ -10,8 +10,8 @@ class AssociationAdmin(admin.ModelAdmin):
     list_per_page = 25
 
 class SectorAdmin(admin.ModelAdmin):
-    list_display = ('idsector', 'sectorname')
-    list_display_links = ('idsector', 'sectorname')
+    list_display = ('sectorname',)
+    list_display_links = ('sectorname',)
     search_fields = ('sectorname',)
     list_per_page = 25
 

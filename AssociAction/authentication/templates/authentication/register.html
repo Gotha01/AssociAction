@@ -1,0 +1,54 @@
+{% extends 'general_views/base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-8 border">
+                <h1 class="text-center pb-4">{{ register_form.form_title }}</h1>
+                {% if messages %}
+                    <div class="alert alert-danger" role="alert">
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li {% if message.tags %}class=" {{ message.tags }} "{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group p-4">
+                        <div class="row">
+                            {% for field in register_form %}
+                                <div class="col-md-6 col-12 py-2 text-center">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                </div>
+                                <div class="col-md-6 col-12 text-center">{{ field }}</div>
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                {% endif %}
+                                {% if field.errors %}
+                                    <div class="alert alert-danger mt-4">
+                                        <ul>
+                                            {% for field_errors in register_form.errors.values %}
+                                                {% for error in field_errors %}
+                                                    <li style="list-style: none;">{{ error }}</li>
+                                                {% endfor %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button style="font-weight: bolder;" type="submit" class="btn btn-primary m-4">S'inscrire</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    
+</main>
+{% endblock %}

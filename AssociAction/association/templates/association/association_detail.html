@@ -1,14 +1,21 @@
 {% extends 'general_views/base.html' %}
-
 {% block content %}
 <main>
-  <section>
-    <h1>{{ association.associationname }}</h1>
-    <p>Acronym: {{ association.acronym }}</p>
-    <p>Phone: {{ association.phone }}</p>
-    <p>Email: {{ association.email }}</p>
-    <p>Description: {{ association.description }}</p>
-    <!-- Ajoutez d'autres détails d'association ici si nécessaire -->
+  <section class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card text-center">
+          <img class="card-img-top img-fluid" style="max-height:250px" src="{{ association.logo.url }}" alt="{{ association.associationname }} Logo">
+          <div class="card-body px-3" style="font-weight:bold; font-size:25px;">
+            <h5 class="card-title">{{ association.associationname }}</h5>
+            <p class="card-text text-gray">Acronym: {{ association.acronym }}</p>
+            <p class="card-text">Phone: {{ association.phone }}</p>
+            <p class="card-text">Email: {{ association.email }}</p>
+            <p class="card-text">Description: {{ association.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </main>
 {% endblock %}

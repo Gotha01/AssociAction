@@ -1,133 +1,151 @@
+import os
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.views.generic import View
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+from AssociAction.settings import MEDIA_ROOT
 from . import forms as fms
-from .models import Address
+from .models import Address, UserAddress
 
 User = get_user_model()
 
+class RegisterView(View):
+    register_form_class = fms.RegistrationForm
+    template_name = "authentication/register.html"
+
+    def get(self, request):
+        register_form = self.register_form_class()
+        return render(request, self.template_name, {'register_form': register_form})
+    
+    def post(self, request):
+        form = self.register_form_class(request.POST)
+        message = ''
+        if form.is_valid():
+            try:
+                user = form.save()
+                if user is not None:
+                    message = 'Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.'
+                    request.session['registration_message'] = message
+                    return redirect('login')
+            except ValueError as e:
+                if "This email is already in use" in str(e):
+                    messages.error(request, 'Cet email est déjà enregistré.')
+                else:
+                    messages.error(request, "Un champ a mal été renseigné.")
+        return render(request, self.template_name, {
+            'register_form': form,
+        })
+
 class LoginPageView(View):
     login_form_class = fms.LoginForm
-    registration_form_class = fms.RegistrationForm
-    template_name = 'authentication/login_and_register.html'
-    
+    template_name = "authentication/login.html"
     
     def get(self, request):
-        message = ''
         login_form = self.login_form_class()
-        registration_form = self.registration_form_class()
-        return render(request, 'authentication/login_and_register.html', {
+        message = ''
+        registration_message = request.session.pop('registration_message', None)
+        return render(request, self.template_name, {
             'login_form': login_form,
-            'registration_form': registration_form,
-            'message': message,
+            'registration_message': registration_message,
         })
 
     def post(self, request):
         login_form = self.login_form_class(request.POST)
-        registration_form = self.registration_form_class(request.POST)
         message = ''
-        registration_success = False
 
-        if 'login_submit' in request.POST and login_form.is_valid():
-            user = authenticate(
-                username = login_form.cleaned_data['username'],
-                password = login_form.cleaned_data['password'],
-            )
-            if user is not None:
-                login(request, user)
-                return redirect('home')
-            else:
-                message = 'identifiants invalides'
+        if login_form.is_valid():
+            try: 
+                user = authenticate(
+                    username = login_form.cleaned_data['username'],
+                    password = login_form.cleaned_data['password'],
+                )
+                if user is not None:
+                    login(request, user)
+                    return redirect('home')
+                else:
+                    message = 'identifiants invalides'
+            except Exception as e:
+                message = e
 
-        elif 'register_submit' in request.POST and registration_form.is_valid():
-            user_model = get_user_model()
-            new_user = user_model.objects.create_user(
-                username = registration_form.cleaned_data['username'],
-                email = registration_form.cleaned_data['email'],
-                password = registration_form.cleaned_data['password'],
-                first_name = registration_form.cleaned_data['first_name'],
-                last_name = registration_form.cleaned_data['last_name'],
-            )
-            registration_success = True
-
-        return render(request, 'authentication/login_and_register.html', {
+        return render(request, 'authentication/login.html', {
             'login_form': self.login_form_class,
-            'registration_form': self.registration_form_class,
             'message': message,
-            'registration_success': registration_success,
         })
 
 @login_required
 def profile_view(request):
     user = request.user
-    return render(request, 'authentication/user_profile.html', {'user': user})
+    address = None
+    user_address_entry = UserAddress.objects.filter(user=user).first()
+    if user_address_entry:
+        address_id = user_address_entry.address.id
+        address = Address.objects.get(id=address_id)
+    return render(request, 'authentication/user_profile.html', {'user': user, 'address': address})
 
 @login_required
 def update_profile_view(request):
     user_form = fms.UserProfileUpdateForm(instance=request.user)
     img_form = fms.UserImageUpdateForm(request.FILES, instance=request.user)
     address_form = fms.AddressUpdateForm()
-    # Recover user address
-    address_instance = request.user.get_address()
 
     if request.method == 'POST':
-        
         img_form = fms.UserImageUpdateForm(request.POST, request.FILES, instance=request.user)
-        
-        if 'save_user_form' in request.POST:
-            user_form = fms.UserProfileUpdateForm(request.POST, instance=request.user)
-            if user_form.is_valid():
-                user_form.save()
-                messages.success(request, "Informations générales mises à jour avec succès.")
-                return redirect('update_profile')
-            
-        if img_form.is_valid():
-            img_form.save()
-            return redirect('update_profile')
+        user = request.user
 
         if 'save_address_form' in request.POST:
             address_form = fms.AddressUpdateForm(request.POST)
             if address_form.is_valid():
-                
-                postalcode = address_form.cleaned_data.get('postalcode')
-                cityname = address_form.cleaned_data.get('cityname')
-                addresslineone = address_form.cleaned_data.get('addresslineone')
-                addresslinetwo = address_form.cleaned_data.get('addresslinetwo')
-                # Update address if available
-                if address_instance:
-                    # Update non-empty fields of existing address
-                    if postalcode:
-                        address_instance.postalcode = postalcode
-                    if cityname:
-                        address_instance.cityname = cityname
-                    if addresslineone:
-                        address_instance.addresslineone = addresslineone
-                    if addresslinetwo:
-                        address_instance.addresslinetwo = addresslinetwo
-                # Create a new address if it doesn't exist
+                user_address = UserAddress.objects.filter(user=user).first()
+                if user_address:
+                    old_address = user_address.address
+                    existing_user_address = address_form.save()
+                    user_address.address = existing_user_address
+                    user_address.save()
+                    old_address.delete()
+                    messages.success(request, "Adresse modifiée avec succès")
                 else:
-                    if postalcode and cityname and addresslineone:
-                        address_instance = Address.objects.create(
-                            user=request.user,
-                            postalcode=postalcode,
-                            cityname=cityname,
-                            addresslineone=addresslineone,
-                            addresslinetwo=addresslinetwo,
-            )
-                messages.success(request, "Votre profil a été mis à jour avec succès.")
+                    new_address = address_form.save()
+                    UserAddress.objects.create(user=user,address=new_address)
+                    messages.success(request, "Adresse enregistrée avec succès")
+                return redirect('profile')
+            
+        elif 'submit_image' in request.POST:
+            if img_form.is_valid():
+                """try:
+                    removing_file = os.path.join(MEDIA_ROOT, str(request.user.user_img.name))
+                    #print(removing_file)
+                    os.remove(removing_file)
+                except FileNotFoundError:
+                    pass CHERCHER la raison de la non-suppression""" 
+                img_form.save()
+                return redirect('profile')
+            
+        elif "delete_image" in request.POST:
+            if user.user_img:
+                user.user_img.delete()
+                user.user_img = None
+                user.save()
+                messages.success(request, "Image de profil supprimée avec succès.")
+                return redirect('profile')
+            
+        elif 'save_user_form' in request.POST:
+            user_form = fms.UserProfileUpdateForm(request.POST, instance=request.user)
+            if user_form.is_valid():
+                user_form.save()
+                messages.success(request, "Informations modifiées")
+                return redirect('profile')
+                    
 
-            return redirect('update_profile')
 
     return render(request, 'authentication/user_profile_update.html', {
         'user_form': user_form,
         'img_form': img_form,
         'address_form': address_form,
-        'address_instance':address_instance
     })
-
+    
 @login_required
 def logout_view(request):
     logout(request)

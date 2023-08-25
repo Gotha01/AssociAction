@@ -6,7 +6,6 @@ from AssociAction.settings import AUTH_USER_MODEL
 
 class Role(models.Model):
     """Class defining all possible user roles"""
-    idrole = models.IntegerField(primary_key=True)
     rolename = models.CharField(max_length=100, unique=True)
     rolepermission = models.IntegerField()
     description = models.CharField(max_length=150, null=True, blank=True)
@@ -19,7 +18,6 @@ class Role(models.Model):
 
 class Address(models.Model):
     """General class for all addresses (users, associations, events)"""
-    idaddress = models.IntegerField(primary_key=True)
     postalcode = models.IntegerField()
     cityname = models.CharField(max_length=100)
     addresslineone = models.CharField(max_length=100)
@@ -29,12 +27,14 @@ class Address(models.Model):
         db_table = 'address'
 
     def __str__(self):
-        return f"{self.addresslineone}, {self.cityname}"
+        return f"{self.addresslineone}, {self.postalcode} {self.cityname}"
 
 class UserAddress(models.Model):
     """Class used to model the relationship between users and their address"""
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     address = models.ForeignKey(Address, null=True, on_delete=models.SET_NULL)
+    def __str__(self):
+        return f"{self.user.username}, {self.address}"
 
 class UserManager(UserManager):
     def create_user(self, first_name, last_name, username, email, password=None):
@@ -69,7 +69,20 @@ class UserManager(UserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
-
+    
+    def create_staffuser(self, first_name, last_name, username, email, password=None):
+        user = self.create_user(
+            email = self.normalize_email(email),
+            username = username,
+            first_name = first_name,
+            last_name = last_name,
+            password = password
+        )
+        user.is_active = True
+        user.is_staff = True
+        user.save(using=self._db)
+        return user
+    
 class CustomUser(BaseUser):
      # Common Fields
     first_name = models.CharField(max_length=50)
