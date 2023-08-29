@@ -59,14 +59,9 @@
                             </div>
                         </div>
                         <div class="pt-2">
-                            {% if not edit_mode %}
-                            <a href="{% url 'update_profile' %}?edit=true" class="btn btn-primary m-4">
+                            <a href="{% url 'update_profile' %}" class="btn btn-primary m-4">
                                 Modifier le profil
                             </a>
-                            {% else %}
-                            <button type="submit" class="btn btn-primary m-4">Enregistrer les modifications</button>
-                            <a href="{% url 'profile' %}" class="btn btn-secondary m-4">Annuler</a>
-                            {% endif %}
                         </div>
                     </div>
                 </div>

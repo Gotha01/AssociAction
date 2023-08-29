@@ -6,11 +6,12 @@ from django.views.generic import View
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from AssociAction.settings import MEDIA_ROOT
+from AssociAction.settings import MEDIA_ROOT, BASE_DIR
 from . import forms as fms
-from .models import Address, UserAddress
+from .models import Address, UserAddress, CustomUser
 
 User = get_user_model()
+print(BASE_DIR)
 
 class RegisterView(View):
     register_form_class = fms.RegistrationForm
@@ -114,20 +115,29 @@ def update_profile_view(request):
             
         elif 'submit_image' in request.POST:
             if img_form.is_valid():
-                """try:
-                    removing_file = os.path.join(MEDIA_ROOT, str(request.user.user_img.name))
-                    #print(removing_file)
-                    os.remove(removing_file)
-                except FileNotFoundError:
-                    pass CHERCHER la raison de la non-suppression""" 
-                img_form.save()
+                user_profile = CustomUser.objects.get(username=request.user.username)
+                image_field_file = user_profile.user_img
+                if image_field_file is None:
+                    img_form.save()
+                    messages.success(request, 'Image enrgistrée avec succès')
+                else:
+                    old_image_path = os.path.join(MEDIA_ROOT, image_field_file.name)
+                    img_form.save()
+                    if os.path.exists(old_image_path):
+                        print(old_image_path)
+                        os.remove(old_image_path)
+                        messages.success(request, 'Image modifiée avec succès, ancienne image supprimée')
+                    else:
+                        messages.success(request, 'Image modifiée avec succès')
                 return redirect('profile')
             
         elif "delete_image" in request.POST:
-            if user.user_img:
-                user.user_img.delete()
-                user.user_img = None
-                user.save()
+            user_profile = CustomUser.objects.get(username=request.user.username)
+            image_field_file = user_profile.user_img
+            if image_field_file:
+                image_field_file.delete()
+                user_profile.user_img = None
+                user_profile.save()
                 messages.success(request, "Image de profil supprimée avec succès.")
                 return redirect('profile')
             
@@ -137,9 +147,7 @@ def update_profile_view(request):
                 user_form.save()
                 messages.success(request, "Informations modifiées")
                 return redirect('profile')
-                    
-
-
+            
     return render(request, 'authentication/user_profile_update.html', {
         'user_form': user_form,
         'img_form': img_form,

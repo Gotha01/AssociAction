@@ -1,5 +1,6 @@
 from django import forms
-from .models import Association
+from .models import Association, AssociationAddress
+from authentication.models import Address  # Assurez-vous d'importer le modèle Address correctement
 
 class AssociationCreateForm(forms.ModelForm):
     class Meta:
@@ -13,6 +14,3 @@ class AssociationCreateForm(forms.ModelForm):
             'description': 'Description',
             'logo': "Logo de l'association",
         }
-
-class Set_association_addresse(forms.ModelForm):
-    pass

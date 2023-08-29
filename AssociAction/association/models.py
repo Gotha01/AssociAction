@@ -19,7 +19,7 @@ class Association(models.Model):
     phone_number = models.CharField(max_length=10, null=True, blank=True)
     email = models.EmailField(max_length=100, null=True, unique=True)
     description = models.CharField(max_length=150, null=True, blank=True)
-    logo = models.ImageField(upload_to='association_logos/', null=True, blank=True)
+    logo = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.associationname

@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 
-from .models import Association
-from .forms import AssociationCreateForm
+from authentication.forms import AddressUpdateForm
+from .models import Association, AssociationAddress
+from .forms import AssociationCreateForm 
 
 
 def staff_check(user):
@@ -20,18 +21,26 @@ def create_association(request):
         if form.is_valid():
             association = form.save()
             messages.success(request, "Association créée avec succès.")
-            return redirect('association_address_set', association_id=association.id)
+            return redirect('association_address', association_id=association.id)
     else:
         form = AssociationCreateForm()
     
     return render(request, 'association/association_create.html', {'form': form})
 
 @user_passes_test(staff_check)
-def association_address(request):
-    pass
+def association_address(request, association_id):
+    form = AddressUpdateForm()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            AssociationAddress.objects.create
+            messages.success(request, "Association créée avec succès.")
+    return render(request, 'association/association_create.html', {'form': form})
 
 def association_detail(request, association_id):
     association = get_object_or_404(Association, id=association_id)
+    if request.method == 'POST':
+        pass
     return render(request, 'association/association_detail.html', {'association': association})
 
 def association_list(request):

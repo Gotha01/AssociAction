@@ -34,7 +34,8 @@ urlpatterns = [
     path('profile_update/', authv.update_profile_view, name='update_profile'),
     #Association urls
     path('association/<int:association_id>/', assoviews.association_detail, name='association_detail'),
-    path('association_create/', assoviews.create_association, name='create_association')
+    path('association_create/', assoviews.create_association, name='create_association'),
+    path('association_address/<int:association_id>/', assoviews.association_address, name="association_address")
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

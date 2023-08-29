@@ -1,23 +1,46 @@
 {% extends 'general_views/base.html' %}
 
 {% block content %}
-<main>
+<main style="min-height:100vh; background-color:#bbb">
     <section class='container'>
         <div class="row">
-            <h1 class="col-12 py-2 text-center">Créer une nouvelle association</h1>
+            <h3 class="text-center text-primary py-5">Addresse de l'association</h3>
             <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class='row'>
-                {% for field in form %}
-                <div class="col-6 col-md-6 py-2 text-center">
-                    <label for="{{ field.id_for_label }}" style="font-weight: bold;">{{ field.label }}</label>
-                    <div class="text-center">{{ field }}</div>
-                </div>
-                {% endfor %}
-            </div>
-                <div class='row'>
-                    <div class="col-12 py-2 text-center">
-                        <button type="submit" class="btn btn-primary text-center">Créer l'association</button>
+                <div class="form-group" >
+                    <div class="row justify-content-center">
+                        <div class="col-8 py-2">
+                            <div class="row">
+                                <label for="id_postalcode" class="col-8 mb-3 text-center" style="font-weight: bold;">Veuillez renseigner un code postal à 5 chiffres <br> (ex : 73000)</label>
+                                <div class="col-4 pt-2"><input type="number" name="postalcode" required="" id="id_postalcode"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-8 py-2">
+                            <div class="row">
+                                <label for="id_cityname" class="col-8 mb-3 text-center" style="font-weight: bold;">Veuillez entrer le nom de la ville de l'association <br> (ex : Grenoble)</label>
+                                <div class="col-4 pt-2"><input class="border-0" type="text" name="cityname" maxlength="100" required="" id="id_cityname"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 py-2 ">
+                            <div class="row">
+                                <label for="id_addresslineone" class="mb-3 pt-2" style="font-weight: bold;">Intitulé de l'adresse (1ère ligne)</label>
+                                <div class="text-center"><input class="col-8 border-0" type="text" name="addresslineone" maxlength="100" required="" id="id_addresslineone"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 py-2">
+                            <div class="row">
+                                <label for="id_addresslinetwo" class="mb-3 pt-2" style="font-weight: bold;">Intitulé de l'adresse (2ème ligne) --facultatif</label>
+                                <div class="text-center"><input class="col-8 border-0" type="text" name="addresslinetwo" maxlength="100" id="id_addresslinetwo"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-12 py-2 text-center">
+                            <button type="submit" class="btn btn-primary text-center">Créer l'association</button>
+                        </div>
                     </div>
                 </div>
             </form>
