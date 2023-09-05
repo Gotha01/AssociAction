@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Association, Sector, UserRoleAssociation, AssociationSector
+from .models import Association, Sector, UserRoleAssociation, AssociationSector, AssociationAddress
 
 # Register your models here.
 
@@ -29,7 +29,13 @@ class AssociationSectorAdmin(admin.ModelAdmin):
     search_fields = ('association__associationname', 'sector__sectorname')
     list_per_page = 25
 
+class AssociationAddressAdmin(admin.ModelAdmin):
+    list_display = ('association','address')
+    list_per_page = 25
+
+
 admin.site.register(Association, AssociationAdmin)
 admin.site.register(Sector, SectorAdmin)
 admin.site.register(UserRoleAssociation, UserRoleAssociationAdmin)
 admin.site.register(AssociationSector, AssociationSectorAdmin)
+admin.site.register(AssociationAddress, AssociationAddressAdmin)
