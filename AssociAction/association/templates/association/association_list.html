@@ -1,0 +1,15 @@
+{% extends 'general_views/base.html' %}
+{% block content %}
+<main>
+  <section class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        {% for association in associations %}
+            <p>{{ association }}</p>
+            {{ association.id }}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

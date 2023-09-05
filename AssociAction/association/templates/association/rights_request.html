@@ -1,0 +1,55 @@
+{% extends 'general_views/base.html' %}
+{% block content %}
+<main style="min-height:100vh; background-color:#ddd">
+    <section class='container' style="font-weight: bold">
+        <div class="row justify-content-center">
+            <h3 class="text-center text-primary pt-5">Demande de gestion d'association</h3>
+            <p class="col-8 text-center text-dark py-5" >
+                Pour envoyer une demande de droits sur une association en vue de sa gestion sur l'application,
+                veuillez renseigner les informations du formulaire. Les renseignements supplémentaires inscrits dans
+                la partie 'contenu' nous permettra de vous joindre afin d'accéder à votre requête.
+            </p>
+            <form class="col-8" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                <div class="form-group border border-3 rounded-5 border-dark p-4">
+                    <div class="row justify-content-center">
+
+                        <div class="col-md-6 col-12 py-5 text-center">
+                            <label for="id_content">Contenu de la demande  :</label>
+                        </div>
+
+                        <div class="col-md-6 col-12 py-3 text-center">
+                            <textarea name="content" cols="35" rows="4" required="" id="id_content"></textarea>
+                        </div>
+                        
+                        <div class="col-md-6 col-12 py-3 text-center">
+                            <label for="id_association_already_in_app">Mon association est déjà dans l'application</br><span style="color:#888;">(Cochez la case si c'est le cas)</span></label>
+                        </div>
+
+                        <div class="col-md-6 col-12 py-3 text-center">
+                            <input 
+                            type="checkbox" 
+                            name="association_already_in_app" 
+                            id="id_association_already_in_app"
+                            style="width: 20px; height: 20px;">
+                        </div>
+                        
+                        <div class="col-md-6 col-12 py-3 text-center">
+                            <label for="id_association_name">Nom de mon association</br><span style="color:#888;">(si elle est déjà dans l'application)</span></label>
+                        </div>
+
+                        <div class="col-md-6 col-12 py-3 text-center">
+                            <input type="text" name="association_name" id="id_association_name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 pt-4 text-center">
+                            <button type="submit" class="btn btn-primary text-center">Envoyer demande</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}
