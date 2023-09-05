@@ -5,7 +5,8 @@ from authentication.models import CustomUser, Role, Address
 class Sector(models.Model):
     """Class to define associative sectors"""
     sectorname = models.CharField(max_length=100, unique=True)
-
+    description = models.CharField(max_length=150, null=True, blank=True)
+    
     def __str__(self):
         return self.sectorname
 
