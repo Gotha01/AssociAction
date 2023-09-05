@@ -15,6 +15,26 @@ class Role(models.Model):
 
     def __str__(self):
         return self.rolename
+    
+    @classmethod
+    def create_lambda_role(cls):
+        role, created = cls.objects.get_or_create(rolename='Lambda', rolepermission=1)
+        return role
+
+    @classmethod
+    def create_adherent_role(cls):
+        role, created = cls.objects.get_or_create(rolename='Adherent', rolepermission=2)
+        return role
+
+    @classmethod
+    def create_admin_association_role(cls):
+        role, created = cls.objects.get_or_create(rolename='AdminAssociation', rolepermission=3)
+        return role
+
+    @classmethod
+    def create_directeur_association_role(cls):
+        role, created = cls.objects.get_or_create(rolename='DirecteurAssociation', rolepermission=4)
+        return role
 
 class Address(models.Model):
     """General class for all addresses (users, associations, events)"""
