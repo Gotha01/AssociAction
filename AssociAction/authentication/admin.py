@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Group, Permission
 from authentication.models import CustomUser, Role, Address, UserAddress
 
 class CustomUserAdmin(UserAdmin):
@@ -10,9 +11,8 @@ class CustomUserAdmin(UserAdmin):
         'first_name',
         'last_name',
         'phone_number',
-        'is_sex',
+        'id_sex',
         'date_of_birth',
-        'address',
         'is_active',
         'is_staff',
         'is_superuser',
