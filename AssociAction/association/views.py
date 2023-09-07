@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import login_required
 
 from authentication.forms import AddressUpdateForm
-from .models import Association, AssociationAddress
+from .models import Association, Sector, AssociationAddress, AssociationSector
 from .forms import AssociationCreateForm, AskAssociationRights
 from dev_config import admin_mail
 
@@ -22,6 +22,10 @@ def create_association(request):
         form = AssociationCreateForm(request.POST, request.FILES)
         if form.is_valid():
             association = form.save()
+            sector_id = request.POST.get('sector')
+            if sector_id:
+                sector = Sector.objects.get(pk=sector_id)
+                AssociationSector.objects.create(association=association,sector=sector)
             messages.success(request, "Association créée avec succès.")
             return redirect('association_address', association_id=association.id)
     else:
@@ -43,10 +47,20 @@ def association_address(request, association_id):
 
 def association_detail(request, association_id):
     association = get_object_or_404(Association, id=association_id)
+    try:
+        association_sector = AssociationSector.objects.get(association=association)
+        sector = Sector.objects.get(id=association_sector.sector_id)
+    except AssociationSector.DoesNotExist:
+        sector = None
+    
     if request.user != None:
         if request.method == 'POST':
             pass
-    return render(request, 'association/association_detail.html', {'association': association})
+    return render(
+        request,
+        'association/association_detail.html',
+        {'association' : association, 'sector' : sector}
+    )
 
 @login_required
 def request_rights_view(request):

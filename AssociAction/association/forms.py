@@ -1,11 +1,15 @@
 from django import forms
-from .models import Association
+from .models import Association, Sector
 
 
 class AssociationCreateForm(forms.ModelForm):
+    sector = forms.ModelChoiceField(
+        queryset=Sector.objects.all(),
+        widget=forms.Select(attrs={'style': ''})
+    )
     class Meta:
         model = Association
-        fields = ['associationname', 'acronym', 'phone_number', 'email', 'description', 'logo']
+        fields = ['associationname', 'sector', 'email', 'acronym', 'phone_number', 'description', 'logo']
         labels = {
             'associationname': "Nom de l'association",
             'acronym': 'Acronyme',
@@ -13,6 +17,16 @@ class AssociationCreateForm(forms.ModelForm):
             'email': 'Adresse e-mail',
             'description': 'Description',
             'logo': "Logo de l'association",
+            'sector': "Secteur associatif"
+
+        }
+        widgets = {
+            'associationname': forms.TextInput(attrs={'style': ''}),
+            'email': forms.EmailInput(attrs={'style': ''}),
+            'acronym': forms.TextInput(attrs={'style': ''}),
+            'phone_number': forms.TextInput(attrs={'style': ''}),
+            'description': forms.TextInput(attrs={'style': ''}),
+            'logo': forms.ClearableFileInput(attrs={'style': ''}),
         }
 
 
