@@ -8,4 +8,4 @@ def home(request):
     return render(request, "general_views/home.html", context)
 
 def help_center(request):
-    pass
+    return render(request, "general_views/help.html")
