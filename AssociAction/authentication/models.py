@@ -4,6 +4,7 @@ from django.utils import timezone
 
 from AssociAction.settings import AUTH_USER_MODEL
 
+
 class Role(models.Model):
     """Class defining all possible user roles"""
     rolename = models.CharField(max_length=100, unique=True)
@@ -16,45 +17,9 @@ class Role(models.Model):
     def __str__(self):
         return self.rolename
     
-    @classmethod
-    def create_lambda_role(cls):
-        role, created = cls.objects.get_or_create(rolename='Lambda', rolepermission=1)
-        return role
-
-    @classmethod
-    def create_adherent_role(cls):
-        role, created = cls.objects.get_or_create(rolename='Adherent', rolepermission=2)
-        return role
-
-    @classmethod
-    def create_admin_association_role(cls):
-        role, created = cls.objects.get_or_create(rolename='AdminAssociation', rolepermission=3)
-        return role
-
-    @classmethod
-    def create_directeur_association_role(cls):
-        role, created = cls.objects.get_or_create(rolename='DirecteurAssociation', rolepermission=4)
-        return role
-
-class Address(models.Model):
-    """General class for all addresses (users, associations, events)"""
-    postalcode = models.IntegerField()
-    cityname = models.CharField(max_length=100)
-    addresslineone = models.CharField(max_length=100)
-    addresslinetwo = models.CharField(max_length=100, null=True, blank=True)
-
     class Meta:
-        db_table = 'address'
+        db_table = 'role'
 
-    def __str__(self):
-        return f"{self.addresslineone}, {self.postalcode} {self.cityname}"
-
-class UserAddress(models.Model):
-    """Class used to model the relationship between users and their address"""
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
-    address = models.ForeignKey(Address, null=True, on_delete=models.SET_NULL)
-    def __str__(self):
-        return f"{self.user.username}, {self.address}"
 
 class UserManager(UserManager):
     def create_user(self, first_name, last_name, username, email, password=None):
@@ -119,6 +84,7 @@ class CustomUser(BaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username','first_name','last_name']
@@ -140,3 +106,23 @@ class CustomUser(BaseUser):
             return user_address.address
         except UserAddress.DoesNotExist:
             return None
+        
+class Address(models.Model):
+    """General class for all addresses (users, associations, events)"""
+    postalcode = models.IntegerField()
+    cityname = models.CharField(max_length=100)
+    addresslineone = models.CharField(max_length=100)
+    addresslinetwo = models.CharField(max_length=100, null=True, blank=True)
+
+    class Meta:
+        db_table = 'address'
+
+    def __str__(self):
+        return f"{self.addresslineone}, {self.postalcode} {self.cityname}"
+
+class UserAddress(models.Model):
+    """Class used to model the relationship between users and their address"""
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    address = models.ForeignKey(Address, null=True, on_delete=models.SET_NULL)
+    def __str__(self):
+        return f"{self.user.username}, {self.address}"

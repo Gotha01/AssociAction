@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import Group, Permission
 from authentication.models import CustomUser, Role, Address, UserAddress
 
 class CustomUserAdmin(UserAdmin):
@@ -19,7 +18,11 @@ class CustomUserAdmin(UserAdmin):
         'date_joined',
     )
     list_filter = (
-        'username', 'last_name', 'is_active', 'is_superuser', 'date_joined'
+        'username',
+        'last_name',
+        'is_active',
+        'is_superuser',
+        'date_joined'
     )
     list_per_page = 25
 

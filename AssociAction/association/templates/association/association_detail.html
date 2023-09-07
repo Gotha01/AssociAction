@@ -3,15 +3,28 @@
 <main>
   <section class="container">
     <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card text-center">
-          <img class="card-img-top img-fluid" style="max-height:250px" src="{{ association.logo.url }}" alt="{{ association.associationname }} Logo">
-          <div class="card-body px-3" style="font-weight:bold; font-size:25px;">
-            <h5 class="card-title">{{ association.associationname }}</h5>
-            <p class="card-text text-gray">Acronym: {{ association.acronym }}</p>
-            <p class="card-text">Phone: {{ association.phone }}</p>
+      <div class="col-md-8 py-5">
+        <div class="card border rounded-4 border-5 text-center">
+          <div class='row'>
+            <div class='col-12 py-3'>
+              <img 
+                class="card-img-top img-fluid" 
+                style="max-width: 500px; max-height: 250px; width: auto; height: 100%;" 
+                src="{{ association.logo.url }}" 
+                alt="{{ association.associationname }} Logo">
+            </div>
+          </div>
+          <div class="card-body pt-2" style="font-weight:bold; font-size:20px; color:#555">
+            <h5 class="card-title pb-3" style="font-weight:bold; font-size:25px; color:#222;">{{ association.associationname }}</h5>
+            <p class="card-text">Sector: {{ sector.sectorname }}</p>
+            <p class="card-text">Acronym: {{ association.acronym }}</p>
+            <p class="card-text">Phone: {{ association.phone_number }}</p>
             <p class="card-text">Email: {{ association.email }}</p>
             <p class="card-text">Description: {{ association.description }}</p>
+            <div class='row justify-content-center'>
+              <a href="{% url 'home' %}" class="btn btn-primary col-4">Retourner à la page d'accueil</a>
+              <!--{% if userrole is director %}<a href="{% url 'home' %}" class="btn btn-primary">Modifier les informations de l'association</a>{% endif %}-->
+            </div>
           </div>
         </div>
       </div>
