@@ -19,12 +19,15 @@ from django.urls import path
 from general_views import views as gv
 from authentication import views as authv
 from association import views as assoviews
+from search import views as searchv
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    #General urls
     path('admin/', admin.site.urls),
     path('', gv.home, name='home'),
+    path('help_center/', gv.help_center, name='help'),
     #Authentication urls
     path('register/', authv.RegisterView.as_view(), name='register'),
     path('login/', authv.LoginPageView.as_view(), name='login'),
