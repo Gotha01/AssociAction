@@ -1,25 +1,48 @@
 {% load static %}
-<section class="" style="height: 472px; background-color: #107aca; position: relative;">
+<section style="height: 472px; background-color: #107aca; position: relative;">
     <style>
         .form-container{
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 10px;
         }
 
-        /* Style du bouton sans survol */
         #search-button {
             background: linear-gradient(180deg, #3fd5ce, #07b0a9 58.85%, #049c96 97.02%);
+            box-shadow: none;
+            font-size: 14px;
+            font-weight: bold;
+            font-family: arial;
+            width: 100%;"
         }
     
-        /* Style du bouton au survol */
+        #search-button:active {
+            background: linear-gradient(180deg, #049c96, #07b0a9 58.85%, #3fd5ce 97.02%);
+            box-shadow: none;
+        }
+        
         #search-button:hover {
-            background-color: #049c96; /* Couleur de fond au survol */
+            background: linear-gradient(180deg, #049c96, #07b0a9 58.85%, #3fd5ce 97.02%);
+            box-shadow: none;
+        }
+
+        .form-control:focus {
+            border-color: inherit;
+            box-shadow: none;
+        }
+
+        .form-control:hover {
+            border-color: inherit;
+            box-shadow: none;
         }
     </style>
     <div class="container p-5" style="padding-right: 250px;">
         <div class="row" style="margin-top: 90px;">
             <div class="col-8">
-                <div class="" style="color:white; font-family: Montserrat, arial, sans-serif; font-weight:bolder; font-size:32px">
+                <div style="
+                    color: white;
+                    font-family: Montserrat, arial, sans-serif;
+                    font-weight:bolder;
+                    font-size:32px">
                     Trouvez l'association qui répondra à vos besoins.
                 </div>
 
@@ -33,28 +56,26 @@
                         <div class="row" style="height:60px;">
                             {% for field in form %}
                                 {% if field.name == "quoi" %}
-                                <div class="col-5 col-xl-4">
+                                <div class="col-md-4">
                                     <div class="form-group">
+                                        <label for="{{ field.id }}" class="sr-only">{{ field.label }}</label>
                                         <input class='form-control border-0' style="height:60px;" aria-label="{{ field.label }}" name="{{ field.name }}" placeholder="Nom, secteur associatif, ..."></input>
                                     </div>
                                 </div>
                                 {% elif field.name == "ou" %}
-                                <div class="col-4 col-xl-4">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <input class='form-control border-0' style="height:60px;" aria-label="{{ field.label }}" placeholder="Où?"></input>
+                                        <label for="{{ field.id }}" class="sr-only">{{ field.label }}</label>
+                                        <input class='form-control border-0' style="height:60px;" aria-label="{{ field.label }}" name="{{ field.name }}" placeholder="Où?"></input>
                                     </div>
                                 </div>
                                 {% endif %}
                             {% endfor %}
-                            <div class="col-3 col-xl-4">
+                            <div class="col-md-4">
                                 <div class="form-group d-flex justify-content-end p-1" style="height: 60px;">
                                     <button 
                                         id="search-button"
-                                        class="btn btn-lg text-white" 
-                                        style="font-size: 14px;
-                                                font-weight: bold;
-                                                font-family: arial;
-                                                width: 100%;"
+                                        class="btn btn-lg text-white"
                                         type="submit">
                                         Rechercher
                                     </button>    

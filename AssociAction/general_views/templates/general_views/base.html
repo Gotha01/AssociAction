@@ -20,11 +20,52 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="{% static 'css/styles.css' %}">
         <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
-        <style>svg{fill:#eee}</style>
+        <style>
+            svg{fill:#eee}
+
+            #have_asso{
+                font-family: 'Roboto';
+                border-radius: 8px;
+                color:#107aca;
+                font-weight: bold;
+                font-size: 14px;
+                height: 32px;
+            }
+            #help_center{
+                font-family: 'Roboto';
+                border-radius: 8px;
+                font-weight: bold;
+                font-size: 14px;
+            }
+            #create_asso{
+                font-family: 'Roboto';
+                border-radius: 8px;
+                font-weight: bold;
+                font-size: 14px;
+            }
+            #my_account{
+                font-family: 'Roboto';
+                border-radius: 8px;
+                font-weight: bold;
+                font-size: 14px;
+            }
+            #sign_out{
+                font-family: 'Roboto';
+                border-radius: 8px;
+                font-weight: bold;
+                font-size: 14px;
+            }
+            #sign_in{
+                font-family: 'Roboto';
+                border-radius: 8px;
+                font-weight: bold;
+                font-size: 14px;
+            }
+        </style>
     </head>
     <body class='container-fluid p-0 bg-light'>
         <header>
-            <nav class="navbar navbar-expand-sm">
+            <nav class="navbar navbar-expand-xl">
                 <a class="navbar-brand text-white px-4" href="/">
                     <div style="font-family: 'Satisfy'; font-size: 30px;">
                         AssociAction
@@ -34,15 +75,8 @@
                     <a class="nav-link my-auto" href="{% url 'request_rights' %}">
                         <button 
                             type="button" 
-                            class="btn btn-primary border-white bg-white py-0 mx-3" 
-                            style="
-                            font-family: 'Roboto';
-                            border-radius: 8px;
-                            color:#107aca;
-                            font-weight: bold;
-                            font-size: 14px;
-                            height: 32px;
-                            ">
+                            class="btn btn-primary border-white bg-white py-0 mx-3"
+                            id="have_asso">
                             Vous dirigez une association ?
                         </button>
                     </a>  
@@ -53,13 +87,8 @@
                         </svg>
                         <button 
                             type="button" 
-                            class="btn text-white border-blue bg-blue ps-1" 
-                            style="
-                            font-family: 'Roboto';
-                            border-radius: 8px;
-                            font-weight: bold;
-                            font-size: 14px;
-                            ">
+                            class="btn text-white border-blue bg-blue ps-1"
+                            id='help_center'>
                             Centre d'aide
                         </button>
                     </a>
@@ -71,13 +100,8 @@
                             </svg>
                             <button 
                                 type="button" 
-                                class="btn text-white border-blue bg-blue ps-1" 
-                                style="
-                                font-family: 'Roboto';
-                                border-radius: 8px;
-                                font-weight: bold;
-                                font-size: 14px;
-                                ">
+                                class="btn text-white border-blue bg-blue ps-1"
+                                id='create_asso'>
                                 Créer une assocation
                             </button>
                         </a>
@@ -88,13 +112,8 @@
                         </svg>
                         <button 
                             type="button" 
-                            class="btn text-white border-blue bg-blue ps-1" 
-                            style="
-                            font-family: 'Roboto';
-                            border-radius: 8px;
-                            font-weight: bold;
-                            font-size: 14px;
-                            ">
+                            class="btn text-white border-blue bg-blue ps-1"
+                            id="my_account">
                             Mon compte
                         </button>
                     </a>
@@ -102,13 +121,8 @@
                         <img src="{% static 'img/disconnect.png' %}" alt='Deconnexion' style='width: 16px; height: 16px; filter: brightness(0) invert(1);'></img>
                         <button 
                             type="button" 
-                            class="btn text-white border-blue bg-blue ps-1" 
-                            style="
-                            font-family: 'Roboto';
-                            border-radius: 8px;
-                            font-weight: bold;
-                            font-size: 14px;
-                            ">
+                            class="btn text-white border-blue bg-blue ps-1"
+                            id="sign_out">
                             Se déconnecter
                         </button>
                     </a>
@@ -119,13 +133,8 @@
                         </svg>
                         <button 
                             type="button" 
-                            class="btn text-white border-blue bg-blue ps-1" 
-                            style="
-                            font-family: 'Roboto';
-                            border-radius: 8px;
-                            font-weight: bold;
-                            font-size: 14px;
-                            ">
+                            class="btn text-white border-blue bg-blue ps-1"
+                            id="sign_in">
                             Se connecter
                         </button>
                     </a>
