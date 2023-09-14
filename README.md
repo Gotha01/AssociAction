@@ -1,5 +1,3 @@
-<center>
-
 # Associ'Action
 </center>
 
@@ -14,8 +12,6 @@
 
 ### Associ'Action vous ouvre les portes d'une agora virtuelle, d'un marché dynamique des associations, vous permettant de découvrir, adhérer et profiter des services proposés par une multitude d'organisations. Interagissez, partagez des expériences et contribuez activement à la vie associative de votre communauté.
 ---
-<center>
-
 ## Sommaire
 
 
@@ -30,11 +26,8 @@
 [**Tools**](#Tools)  
 
 ---
-</center>
-<center>
 
 ## Overall operation
-</center>
 <a name="Overall-operation"></a>
 L'utilisateur peut effectuer des recherches d'associations via leurs noms ou leur ville d'implantation, il peut ensuite accéder à leur page détaillée qui leur permettra de voir les informations de celle-ci ainsi qu'accéder aux événements de cette dernière.
 
@@ -48,8 +41,10 @@ Bien entendu, le passage d'un membre au rôle de directeur d'association passe p
 
 
 ---
-## 🏠 For Local Use
 <a name="For-Local-Use"></a>
+
+## 🏠 For Local Use
+
 Pour utiliser ce projet en local, suivez les étapes suivantes :
 
 ### 1. Téléchargement du Projet
@@ -157,27 +152,27 @@ Démarrez le serveur de développement Django en utilisant la commande suivante 
 python manage.py runserver
 ```
 Le serveur devrait démarrer, et vous pourrez accéder à l'application en ouvrant un navigateur web et en accédant à l'adresse http://localhost:8000/.
+<a name="About Me"></a>
 
 ## 🚀 About Me
-<a name="About Me"></a>
+
 I'm a junior Python developer who try to code his life with a better framework than the one he used yesterday.
 
 ---
-## 🔗 Links
 <a name="Links"></a>
+
+## 🔗 Links
+
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/quentin-faure-b818221b9/)
 [![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/Q_Faure/)
 
 ---
-## Tools
-
-<center>
 <a name="Tools"></a>
+
+## Tools
 <p align="top left">
   <img src="https://www.djangoproject.com/m/img/logos/django-logo-negative.svg" alt="Django" width="200" height="100">
 </p>
 <p align="top right">
   <img src="https://github.com/tus/official-images-docs/blob/master/mysql/logo.png?raw=true" alt="Django" width="200" height="90">
 </p>
-
-</center>
