@@ -78,12 +78,7 @@ class LoginPageView(View):
 @login_required
 def profile_view(request):
     user = request.user
-    address = None
-    user_address_entry = UserAddress.objects.filter(user=user).first()
-    if user_address_entry:
-        address_id = user_address_entry.address.id
-        address = Address.objects.get(id=address_id)
-    return render(request, 'authentication/user_profile.html', {'user': user, 'address': address})
+    return render(request, 'authentication/user_profile.html', {'user': user})
 
 @login_required
 def update_profile_view(request):
@@ -100,7 +95,7 @@ def update_profile_view(request):
             if address_form.is_valid():
                 user_address = UserAddress.objects.filter(user=user).first()
                 if user_address:
-                    old_address = user_address.address
+                    old_address = user.get_address()
                     existing_user_address = address_form.save()
                     user_address.address = existing_user_address
                     user_address.save()

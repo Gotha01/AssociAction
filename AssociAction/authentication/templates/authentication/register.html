@@ -2,8 +2,13 @@
 {% load static %}
 
 {% block content %}
-<main>
-    <div class="container mt-4">
+<main style="min-height:100vh; background-color:#ddd">
+    <div class="container pt-4">
+        <div class="row justify-content-center py-4">
+            <p class="col-8 text-center text-primary mx-5" style="font-weight: bold;">
+                Veuillez remplir tous les champs ci-dessous pour créer votre compte utilisateur.
+            </p>
+        </div>
         <div class="row justify-content-center">
             <div class="col-8 border">
                 <h1 class="text-center pb-4">{{ register_form.form_title }}</h1>
@@ -16,13 +21,12 @@
                         </ul>
                     </div>
                 {% endif %}
-                
                 <form method="POST">
                     {% csrf_token %}
                     <div class="form-group p-4">
                         <div class="row">
                             {% for field in register_form %}
-                                <div class="col-md-6 col-12 py-2 text-center">
+                                <div class="col-md-6 col-12 py-2 text-center" style="font-weight:bold;">
                                     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                                 </div>
                                 <div class="col-md-6 col-12 text-center">{{ field }}</div>

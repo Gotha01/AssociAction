@@ -101,11 +101,7 @@ class CustomUser(BaseUser):
         return True
     
     def get_address(self):
-        try:
-            user_address = UserAddress.objects.get(user=self)
-            return user_address.address
-        except UserAddress.DoesNotExist:
-            return None
+        return UserAddress.objects.get(user=self).address
         
 class Address(models.Model):
     """General class for all addresses (users, associations, events)"""

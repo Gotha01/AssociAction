@@ -50,10 +50,10 @@
                                     {{ user.phone_number }}
                                 </div>
                                 {% endif %}
-                                {% if address %}
+                                {% if user.get_address %}
                                 <div class="col-12 py-2">
                                     <label>Adresse :</label>
-                                    {{ address }}
+                                    {{  user.get_address }}
                                 </div>
                                 {% endif %}
                             </div>
