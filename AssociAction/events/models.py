@@ -18,6 +18,7 @@ class EventAddress(models.Model):
     
     class Meta:
         db_table = 'event_address'
+        unique_together = ('event', 'address')
     
 class AssociationEvent(models.Model):
     """Class for linking events and associations"""
@@ -26,3 +27,4 @@ class AssociationEvent(models.Model):
 
     class Meta:
         db_table = 'event_association'
+        unique_together = ('association', 'event')

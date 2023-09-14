@@ -20,7 +20,6 @@ class Role(models.Model):
     class Meta:
         db_table = 'role'
 
-
 class UserManager(UserManager):
     def create_user(self, first_name, last_name, username, email, password=None):
         if not email:
@@ -120,5 +119,9 @@ class UserAddress(models.Model):
     """Class used to model the relationship between users and their address"""
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     address = models.ForeignKey(Address, null=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        unique_together = ('user', 'address')
+        
     def __str__(self):
         return f"{self.user.username}, {self.address}"

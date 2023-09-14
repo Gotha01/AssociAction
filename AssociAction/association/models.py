@@ -51,6 +51,7 @@ class UserRoleAssociation(models.Model):
 
     class Meta:
         db_table = 'user_role_association'
+        unique_together = ('user', 'association')
 
 class AssociationSector(models.Model):
     """Class defining a user's role in an association"""
@@ -59,3 +60,4 @@ class AssociationSector(models.Model):
     
     class Meta:
         db_table = 'sector_association'
+        unique_together =('association', 'sector')
