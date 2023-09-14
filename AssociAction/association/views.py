@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from authentication.forms import AddressUpdateForm
 from .models import Association, Sector, AssociationAddress, AssociationSector
+from authentication.models import Address
 from .forms import AssociationCreateForm, AskAssociationRights
 from dev_config import admin_mail
 
@@ -47,19 +48,13 @@ def association_address(request, association_id):
 
 def association_detail(request, association_id):
     association = get_object_or_404(Association, id=association_id)
-    try:
-        association_sector = AssociationSector.objects.get(association=association)
-        sector = Sector.objects.get(id=association_sector.sector_id)
-    except AssociationSector.DoesNotExist:
-        sector = None
-    
     if request.user != None:
         if request.method == 'POST':
             pass
     return render(
         request,
         'association/association_detail.html',
-        {'association' : association, 'sector' : sector}
+        {'association' : association,}
     )
 
 @login_required
@@ -94,6 +89,6 @@ def request_rights_view(request):
     
     return render(request, 'association/rights_request.html', {'form': form})
 
-def association_list(request):
-    associations = Association.objects.all()
-    return render(request, "association/association_list.html", {'associations':associations})
+def association_list(request, context):
+    associations = context.get('associations', [])
+    return render(request, "association/association_list.html", {'associations': associations})

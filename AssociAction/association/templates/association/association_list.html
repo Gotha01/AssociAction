@@ -1,13 +1,27 @@
 {% extends 'general_views/base.html' %}
 {% block content %}
+
 <main>
   <section class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        {% for association in associations %}
-            <p>{{ association }}</p>
-            {{ association.id }}
+    <h1 class="text-center mt-4">Résultat de votre recherche :</h1>
+    <div class="row justify-content-center mt-4">
+      {% for association in associations %}
+      <div class="col-md-4 my-4">
+        <div class="card rounded-5 py-4">
+          <img class="card-img-top mx-auto d-block" style="height:200px; width:200px; object-fit: cover; border-radius:7%; overflow: hidden;" src="{{ association.logo.url }}" alt="{{ association.associationname }} Logo">
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ association.associationname }}</h5>
+            <p class="card-text"style='color:#777'>{{ association.get_sector }}</p>
+            <p class="card-text"style='color:#777'>{{ association.get_address.cityname }}</p>
+            <p class="card-text">Description : </br>{{ association.description }}</p>
+          </div>
+        </div>
+      </div>
         {% endfor %}
+    </div>
+    <div class="row text-center justify-content-center">
+      <div class="col-8">
+        <a href="{% url 'home' %}" class="btn btn-dark">Retourner à la page d'accueil</a>
       </div>
     </div>
   </section>

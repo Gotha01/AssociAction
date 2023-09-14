@@ -21,12 +21,12 @@ class AssociationCreateForm(forms.ModelForm):
 
         }
         widgets = {
-            'associationname': forms.TextInput(attrs={'style': ''}),
-            'email': forms.EmailInput(attrs={'style': ''}),
-            'acronym': forms.TextInput(attrs={'style': ''}),
-            'phone_number': forms.TextInput(attrs={'style': ''}),
-            'description': forms.TextInput(attrs={'style': ''}),
-            'logo': forms.ClearableFileInput(attrs={'style': ''}),
+            'associationname': forms.TextInput(attrs={'required': 'required'}),
+            'email': forms.EmailInput(attrs={'required': 'required'}),
+            'acronym': forms.TextInput(attrs={'required': 'required'}),
+            'phone_number': forms.TextInput(attrs={'required': 'required'}),
+            'description': forms.TextInput(attrs={'required': 'required'}),
+            'logo': forms.ClearableFileInput(attrs={'required': 'required'}),
         }
 
 

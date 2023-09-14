@@ -24,12 +24,12 @@ class Association(models.Model):
 
     def __str__(self):
         return self.associationname
-
-    def get_association_address(self):
-        try:
-            pass
-        except:
-            pass
+    
+    def get_sector(self):
+        return AssociationSector.objects.get(association=self).sector
+    
+    def get_address(self):
+        return AssociationAddress.objects.get(association=self).address
 
     class Meta:
         db_table = 'association'
@@ -41,6 +41,7 @@ class AssociationAddress(models.Model):
 
     class Meta:
         db_table = 'association_address'
+        unique_together =('association', 'address')
 
 class UserRoleAssociation(models.Model):
     """Class used to define the user's role in the association"""
