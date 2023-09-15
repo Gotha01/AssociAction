@@ -1,8 +1,7 @@
 # Associ'Action
-</center>
 
 ## Badges
-![Static Badge](https://img.shields.io/badge/Status-pre_deployment-green)
+![Static Badge](https://img.shields.io/badge/Status-pre_deployment-blue)
 ![Static Badge](https://img.shields.io/badge/Version-1.0.0-blue)
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
@@ -10,9 +9,9 @@
 ---
 ## Description
 
-### Associ'Action vous ouvre les portes d'une agora virtuelle, d'un marché dynamique des associations, vous permettant de découvrir, adhérer et profiter des services proposés par une multitude d'organisations. Interagissez, partagez des expériences et contribuez activement à la vie associative de votre communauté.
----
-## Sommaire
+### Associ'Action opens the doors to a virtual agora, a dynamic marketplace for associations, enabling you to discover, join and benefit from the services offered by a multitude of organizations. Interact, share experiences and actively contribute to the associative life of your community.
+
+## Summary
 
 
 [**Overall operation**](#Overall-operation)  
@@ -25,140 +24,136 @@
 
 [**Tools**](#Tools)  
 
----
 
 ## Overall operation
 <a name="Overall-operation"></a>
-L'utilisateur peut effectuer des recherches d'associations via leurs noms ou leur ville d'implantation, il peut ensuite accéder à leur page détaillée qui leur permettra de voir les informations de celle-ci ainsi qu'accéder aux événements de cette dernière.
+Users can search for associations by name or city, and then access their details page to view information and events.
 
-L'utilisateur peut aussi s'inscrire sur le site afin que ses informations soient enregistrées et facilitent la recherche géographique ou sectorielle des associations.
+Users can also register on the site so that their information can be recorded and used to search for associations by region or sector.
 
-De plus, le fait de s'incrire permettra d'avoir son propre répertoire d'association et d'ainsi accéder aux évènements plus rapidement.
+What's more, registering will give you your own association directory, so you can access events more quickly.
 
-Si l'utilisateur est un membre de l'association, il existe trois catégories reconnues: adhérent, administrateur, directeur; chacun de ses rôles à des droits sur le précédent.
+If the user is a member of the association, there are three recognized categories: member, administrator, director; each of these roles has rights over the previous one.
 
-Bien entendu, le passage d'un membre au rôle de directeur d'association passe par une demande à l'administrateur de l'application via email.
+Of course, to upgrade a member to the role of association director, a request must be made to the application administrator by email.
 
 
----
 <a name="For-Local-Use"></a>
 
 ## 🏠 For Local Use
 
-Pour utiliser ce projet en local, suivez les étapes suivantes :
+To use this project locally, follow these steps:
 
-### 1. Téléchargement du Projet
+### 1. Project download
 
-Téléchargez le projet en cliquant sur le bouton "Code" en haut à droite de cette page, puis sélectionnez "Download ZIP".  
-Décompressez ensuite le fichier ZIP téléchargé.
+Download the project by clicking on the "Code" button at the top right of this page, then select "Download ZIP".  
+Then unzip the downloaded ZIP file.
 
-### 2. Vérification de la Version de Python
+### 2. Python Version Check
 
-Assurez-vous d'avoir Python installé sur votre machine. Vous pouvez vérifier la version de Python en utilisant la commande suivante :  
+Make sure you have Python installed on your machine. You can check your Python version using the following command:  
 
 ```bash
 python --version
 ```
 
-Assurez-vous d'avoir au moins Python 3.8 ou une version ultérieure.
+Make sure you have at least Python 3.8 or later.
 
-### 3. Initialisation de l'Environnement Virtuel
+### 3. Initializing the Virtual Environment
 
-Avant de commencer, créez un environnement virtuel en utilisant la commande suivante :
+Before you begin, create a virtual environment using the following command:
 ```python
 python -m venv venv
 ```
 
-#### **Activez l'environnement virtuel :**
+#### **Activate the virtual environment :**
 
-Sur Windows :
+On Windows :
 ```bash
 venv\Scripts\activate
 ```
 
-Sur macOS et Linux :
+On macOS and Linux :
 ```bash
 source venv/bin/activate
 ```
 
-### 4. Installation des Dépendances
-Installez les dépendances requises en utilisant la commande suivante pour lire le fichier requirements.txt :
+### 4. Dependencies installation
+Install the required dependencies using the following command to read the requirements.txt file:
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5. Création de la base de données
-Créer une base de données MySQL pour votre projet Django nommé "dbassociation", suivez ces étapes :
+### 5. Database creation
+To create a MySQL database for your Django project named "dbassociation", follow these steps:
 
-Installez MySQL :  
-Si vous ne l'avez pas déjà fait, assurez-vous d'installer MySQL sur votre système. Vous pouvez télécharger la version appropriée pour votre système d'exploitation depuis le site officiel de MySQL (https://dev.mysql.com/downloads/).  
+Install MySQL :  
+If you haven't already done so, make sure you install MySQL on your system. You can download the appropriate version for your operating system from the official MySQL website (https://dev.mysql.com/downloads/). 
 
-Créez une Base de Données :  
-Une fois MySQL installé, vous pouvez créer une nouvelle base de données à l'aide de l'interface en ligne de commande.  
-Ouvrez un terminal et connectez-vous à MySQL en utilisant un compte avec des privilèges d'administration. Vous serez invité à entrer le mot de passe du compte.
+Create a Database :  
+Once MySQL has been installed, you can create a new database using the command line interface.  
+Open a terminal and connect to MySQL using an account with administrative privileges. You will be prompted to enter the account password.
 ```ps
 mysql -u root -p
 ```
 
-Une fois connecté, vous pouvez créer une nouvelle base de données en utilisant la commande SQL suivante. Remplacez "dbassociation" par le nom de votre base de données souhaité.
+Once connected, you can create a new database using the following SQL command. Replace "dbassociation" with the name of your desired database.
 
 ```sql
 CREATE DATABASE dbassociation;
 ```
 
-Vous pouvez vérifier que la base de données a été créée en utilisant la commande suivante :
+You can check that the database has been created using the following command:
 
 ```sql
 SHOW DATABASES;
 ```
 
-__Configurer les Informations de Base de Données dans Django : __ 
-Dans votre projet Django, ouvrez le fichier settings.py et localisez la section DATABASES. Vous devez configurer les informations de connexion à la base de données comme suit :
+**Configuring Database Information in Django:**  
+In your Django project, open the settings.py file and locate the DATABASES section. You need to configure the database connection information as follows:
 ```python
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dbassociation',
         'USER': 'votre_utilisateur_mysql',
-        'PASSWORD': 'votre_mot_de_passe_mysql',
-        'HOST': 'localhost',  # ou l'adresse de votre serveur MySQL
-        'PORT': '',  # Laissez vide pour utiliser le port par défaut (3306)
+        'PASSWORD': 'your_mysql_password',
+        'HOST': 'localhost',  # or the address of your MySQL server
+        'PORT': '',  # Leave empty to use default port (3306)
     }
 }
 ```
-Assurez-vous de remplacer **_'votre_utilisateur_mysql'_**
-et **_'votre_mot_de_passe_mysql'_**
-par les informations de connexion appropriées pour votre serveur MySQL.
+Be sure to replace **_'your_mysql_user'_** with **_'your_mysql_password'_**
+with the appropriate login information for your MySQL server.
 
-### 6.Migrations de la base de données
-Assurez-vous d'avoir activé l'environnement virtuel (étape précédente). Ensuite, exécutez les migrations de la base de données en utilisant les commandes suivantes :
+### 6.Database migrations
+Make sure you have activated the virtual environment (previous step). Next, run the database migrations using the following commands:
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 7.Création d'un Superutilisateur
-Pour accéder à l'interface d'administration Django, vous devez créer un superutilisateur en utilisant la commande suivante :
+### 7.Creating a Superuser
+To access the Django administration interface, you need to create a superuser using the following command:
 ```bash
 python manage.py createsuperuser
 ```
-Suivez les instructions pour créer le superutilisateur en fournissant une adresse e-mail, un nom d'utilisateur, un nom, un prénom et un mot de passe.
+Follow the instructions to create the superuser, providing an e-mail address, user name, surname, first name and password.
 
 
-### 8.Lancement du Serveur de Développement
-Démarrez le serveur de développement Django en utilisant la commande suivante :
+### 8.Launching the Development Server
+Start the Django development server with the following command:
 
 ```bash
 python manage.py runserver
 ```
-Le serveur devrait démarrer, et vous pourrez accéder à l'application en ouvrant un navigateur web et en accédant à l'adresse http://localhost:8000/.
+The server should start up, and you can access the application by opening a web browser and accessing http://localhost:8000/.
 <a name="About Me"></a>
 
 ## 🚀 About Me
 
 I'm a junior Python developer who try to code his life with a better framework than the one he used yesterday.
 
----
 <a name="Links"></a>
 
 ## 🔗 Links
@@ -166,7 +161,6 @@ I'm a junior Python developer who try to code his life with a better framework t
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/quentin-faure-b818221b9/)
 [![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/Q_Faure/)
 
----
 <a name="Tools"></a>
 
 ## Tools
