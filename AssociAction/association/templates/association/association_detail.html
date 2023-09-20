@@ -24,6 +24,9 @@
             <p class="card-text">Addresse: {{ association.get_address }}</p>
             <div class='row row justify-content-around'>
               <a href="{% url 'home' %}" class="btn btn-primary col-4 my-4 py-3" style="font-weight: bold">Retourner à la page d'accueil</a>
+              {% if {% url 'event_association_list' %} %}
+              <!--<a href="{% url 'event_association_list' %}" class="btn btn-primary col-4 my-4 py-3" style="font-weight: bold">Accéder aux événements</a>-->
+              {% endif %}
               {% if request.user.is_superuser %}
               <a href="{% url 'home' %}" class="btn btn-primary col-4 my-4" style="font-weight: bold">Modifier les informations de l'association</a>
               {% endif %}

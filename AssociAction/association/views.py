@@ -6,9 +6,8 @@ from django.contrib.auth.decorators import login_required
 
 from authentication.forms import AddressUpdateForm
 from .models import Association, Sector, AssociationAddress, AssociationSector
-from authentication.models import Address
 from .forms import AssociationCreateForm, AskAssociationRights
-from dev_config import admin_mail
+from decouple import config
 
 
 def staff_check(user):
@@ -66,7 +65,7 @@ def request_rights_view(request):
             contenu = form.cleaned_data['contenu']
             association_already_in_application = form.cleaned_data['association_deja_dans_application']
             nom_association = form.cleaned_data['nom_association']
-            destinataire = admin_mail
+            destinataire = config('admin_mail')
             
             if association_already_in_application:
                 # Specific treatment if the association is already in the application
