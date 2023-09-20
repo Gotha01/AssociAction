@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser as BaseUser, BaseUserManager as UserManager
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 
 from AssociAction.settings import AUTH_USER_MODEL
@@ -104,7 +105,12 @@ class CustomUser(BaseUser):
         
 class Address(models.Model):
     """General class for all addresses (users, associations, events)"""
-    postalcode = models.IntegerField()
+    postalcode = models.IntegerField(
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(99999),
+        ]
+    )
     cityname = models.CharField(max_length=100)
     addresslineone = models.CharField(max_length=100)
     addresslinetwo = models.CharField(max_length=100, null=True, blank=True)
