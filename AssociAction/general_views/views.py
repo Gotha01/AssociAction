@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Q
-from forms import SearchForm
+from .forms import SearchForm
 from association.models import Association, AssociationSector
 
 def home(request):
