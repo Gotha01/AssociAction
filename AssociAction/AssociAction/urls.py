@@ -19,7 +19,6 @@ from django.urls import path
 from general_views import views as gv
 from authentication import views as authv
 from association import views as assoviews
-from search import views as searchv
 from django.conf import settings
 from django.conf.urls.static import static
 

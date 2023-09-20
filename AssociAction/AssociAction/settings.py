@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'association',
     'authentication',
     'events',
-    'search',
     'general_views',
 ]
 
