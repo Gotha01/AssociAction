@@ -138,3 +138,6 @@ dev_config.py
 
 #user images
 media/
+
+#migrations
+migrations/
