@@ -3,7 +3,9 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import login_required
+from django.templatetags.static import static
 
+from events.models import Event, AssociationEvent
 from authentication.forms import AddressUpdateForm
 from .models import Association, Sector, AssociationAddress, AssociationSector
 from .forms import AssociationCreateForm, AskAssociationRights
@@ -47,17 +49,25 @@ def association_address(request, association_id):
 
 def association_detail(request, association_id):
     association = get_object_or_404(Association, id=association_id)
-    if request.user != None:
-        if request.method == 'POST':
-            pass
-    return render(
-        request,
-        'association/association_detail.html',
-        {'association' : association,}
-    )
+    try:
+        next_asso_event = AssociationEvent.objects.filter(association=association).latest('id')
+        next_event=next_asso_event.event
+        return render(
+            request,
+            'association/association_detail.html',
+            {'association':association, 'next_event':next_event}
+        )
+    except AssociationEvent.DoesNotExist:
+        next_event = None
+        return render(
+            request,
+            'association/association_detail.html',
+            {'association' : association, 'next_event':next_event}
+        )
 
+    
 @login_required
-def request_rights_view(request):
+def request_dir_rights_view(request):
     if request.method == 'POST':
         form = AskAssociationRights(request.POST)
         if form.is_valid():

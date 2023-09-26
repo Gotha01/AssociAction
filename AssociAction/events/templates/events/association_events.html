@@ -1,0 +1,18 @@
+{% extends "general_views/base.html" %}
+
+{% block content %}
+<main>
+  <h2>Liste des événements associés</h2>
+  <ul class='list-unstyled'>
+    {% for event in association_events %}
+      <li>
+        <a href="{% url 'event_detail' association_id=event.id event_id=event.id %}" 
+           class="btn btn-primary col-4 my-4 rounded-3" 
+           style="font-weight: bold">
+          {{ event.event_name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</main>
+{% endblock %}

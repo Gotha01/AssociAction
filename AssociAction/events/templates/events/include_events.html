@@ -1,0 +1,23 @@
+{% load static %}
+<section class="container">
+    <div class="row">
+        <div class="card-body">
+            {% if next_event.id != None %}
+            <a style='text-decoration:none' href={% url 'event_detail' association_id=association.id event_id=next_event.id %}>
+                <div class="card border-2" style="background-color:#E7E8E9;">
+                    <div class="card-header pb-3" style="font-weight:bold; font-size:24px; background-color:#aaa;">
+                        Prochain Évènement
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ next_event.event_name }}</p>
+                        <p class="card-text">Date: {{ next_event.date }}</p>
+                        <p class="card-text">Description: {{ next_event.description }}</p>
+                    </div>
+                </div>
+            </a>
+            {% else %}
+            <h5 class="card-title pb-3 text-dark" style="font-weight:bold; font-size:24px;">Pas d'évènement enregistré</h5>
+            {% endif %}
+        </div>
+    </div>
+</section>

@@ -19,6 +19,7 @@ from django.urls import path
 from general_views import views as gv
 from authentication import views as authv
 from association import views as assoviews
+from events import views as eviews
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -40,9 +41,12 @@ urlpatterns = [
     path('association_address/<int:association_id>/', assoviews.association_address, name="association_address"),
     path('association_list/', assoviews.association_list, name='association_list'),
     #Association rights url
-    path('association_rights/', assoviews.request_rights_view, name='request_rights'),
+    path('association_dir_rights/', assoviews.request_dir_rights_view, name='request_dir_rights'),
+    #path('association_rights/', assoviews.request_rights_view, name='request_rights'),
     #Events urls
-    #path('<int:association_id>/events_list')
+    path('association/<int:association_id>/create_event/', eviews.create_event, name='create_event'),#1
+    path('association/<int:association_id>/association_events/', eviews.association_events, name='all_asso_event'),#2
+    path('association/<int:association_id>/association_events/<int:event_id>', eviews.event_detail, name='event_detail'),#3
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

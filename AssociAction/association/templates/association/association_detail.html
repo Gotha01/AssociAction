@@ -1,37 +1,69 @@
 {% extends 'general_views/base.html' %}
+{% load static %}
 {% block content %}
+<style>
+  p, .btn {
+    font-size:14px
+  }
+</style>
 <main>
   <section class="container">
     <div class="row justify-content-center">
       <div class="col-md-8 py-5">
-        <div class="card border rounded-4 border-5 text-center">
+        <div class="card border rounded-4 border-5 text-center" style="background-color:#E7E8E9;">
           <div class='row'>
             <div class='col-12 py-3'>
+              <h5 class="pb-3 text-primary" style="font-weight:bold; font-size:30px;">{{ association.associationname }}</h5>
+            </div>
+            <div class='col-12 pb-5 d-none d-md-block'>
               <img 
-                class="card-img-top img-fluid" 
-                style="max-width: 500px; max-height: 250px; width: auto; height: 100%;" 
-                src="{{ association.logo.url }}" 
-                alt="{{ association.associationname }} Logo">
+                  class="card-img-top img-fluid rounded-5" 
+                  style="max-width: 500px; max-height: 250px; width: auto; height: 100%;" 
+                  src="{{ association.logo.url }}" 
+                  alt="{{ association.associationname }} Logo">
             </div>
           </div>
-          <div class="card-body pt-2" style="font-weight:bold; font-size:20px; color:#555">
-            <h5 class="card-title pb-3" style="font-weight:bold; font-size:25px; color:#222;">{{ association.associationname }}</h5>
-            <p class="card-text">Secteur: {{ association.get_sector }}</p>
-            <p class="card-text">Acronyme: {{ association.acronym }}</p>
-            <p class="card-text">Téléphone: {{ association.phone_number }}</p>
-            <p class="card-text">Email: {{ association.email }}</p>
-            <p class="card-text">Description: {{ association.description }}</p>
-            <p class="card-text">Addresse: {{ association.get_address }}</p>
-            <div class='row row justify-content-around'>
-              <a href="{% url 'home' %}" class="btn btn-primary col-4 my-4 py-3" style="font-weight: bold">Retourner à la page d'accueil</a>
-              {% if {% url 'event_association_list' %} %}
-              <!--<a href="{% url 'event_association_list' %}" class="btn btn-primary col-4 my-4 py-3" style="font-weight: bold">Accéder aux événements</a>-->
-              {% endif %}
-              {% if request.user.is_superuser %}
-              <a href="{% url 'home' %}" class="btn btn-primary col-4 my-4" style="font-weight: bold">Modifier les informations de l'association</a>
-              {% endif %}
+          <div class='row'>
+            <div class='col-xl-6 col-12'>
+              <div class='container'>
+                <div class="row">
+                  <div class="card-body pt-2">
+                    <div class="card-header pb-3 border-0" style="font-weight:bold; font-size:24px;">Informations</div>
+                    <p class="card-text border-top border-2">Secteur: <span style="font-weight:bold;">{{ association.get_sector }}</span></p>
+                    <p class="card-text mt-3 border-top border-2">Acronyme: <span style="font-weight:bold;">{{ association.acronym }}</span></p>
+                    <p class="card-text mt-3 border-top border-2">Téléphone: <span style="font-weight:bold;">{{ association.phone_number }}</span></p>
+                    <p class="card-text mt-3 border-top border-2">Email: <span style="font-weight:bold;">{{ association.email }}</span></p>
+                    {% if association.siret_number %}
+                    <p class="card-text mt-3 border-top border-2">N° Siret <span style="font-weight:bold;">{{ association.siret_number }}</span></p>
+                    {% endif %}
+                    <p class="card-text mt-3 border-top border-2">Description: <span style="font-weight:bold;">{{ association.description }}</span></p>
+                    <p class="card-text mt-3 border-top border-2">Addresse: <span style="font-weight:bold;">{{ association.get_address }}</span></p>
+                  </div>
+                </div>
+              </div>
             </div>
+          <div class='col-xl-6 col-12'>
+            {% include "events/include_events.html" %}
           </div>
+          <div class='row justify-content-around'>
+            {% if request.user.is_superuser %}
+            <div class="col-6">
+              <a href="{% url 'create_event' association_id=association.id %}" class="btn btn-primary mt-4 rounded-pill" style="font-weight: bold">Créer un événement</a>
+            </div>
+            <div class="col-6">
+              <a href="{% url 'all_asso_event' association_id=association.id %}" class="btn btn-primary mt-4 rounded-pill" style="font-weight: bold">Tous les événements</a>
+            </div>
+            {% else %}
+            <div class="col-6">
+              <a href="#" class="btn btn-primary mt-4 rounded-3" style="font-weight: bold">Je suis adhérent</a>
+            </div>
+            {% endif %}
+          </div>
+          <div class='row justify-content-around'>
+            <div class="col-6">
+              <a href="{% url 'home' %}" class="btn btn-dark my-4 rounded-pill" style="font-weight: bold">Retourner à la page d'accueil</a>
+            </div>
+          </div>           
         </div>
       </div>
     </div>
