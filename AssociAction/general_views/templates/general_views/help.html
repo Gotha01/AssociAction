@@ -1,42 +1,69 @@
 {% extends 'general_views/base.html' %}
 {% block content %}
-<main style="min-height:100vh; background-color:#ddd">
-    <section class='container text-center' style="font-weight: bold">
+<main>
+    <section class='container'>
         <div class="row">
-            <h1 class='py-5'>Centre d'aide</h1>
+            <h1 class='py-5' style="font-weight:bolder">Centre d'Aide</h1>
         </div>
         <div class="row py-5">
-            <h2>Instructions pour les Nouveaux Utilisateurs</h2>
-            <p>Bienvenue dans notre application ! Suivez ces étapes pour commencer.</p>
-        </div>
-        <div class="row py-5">
-            <h2>FAQ</h2>
-                <h3>Comment puis-je rejoindre une association ?</h3>
-                <p>Pour rejoindre une association, suivez ces étapes...</p>
-                
-                <h3>Comment puis-je créer un événement ?</h3>
-                <p>Pour créer un événement, suivez ces étapes...</p>
-        </div>
-        <div class="row py-5">    
-            <h2>Tutoriels</h2>
-                <h3>Guide pour les Associations</h3>
-                <p>Apprenez comment créer et gérer votre association.</p>
-        </div>
-        <div class="row py-5">
-            <h2>Contactez-nous</h2>
-            <p>Besoin d'aide ? Contactez notre équipe de support à support@example.com.</p>
-        </div>
-        <div class="row py-5">
-            <h2>Mises à Jour et Nouveautés</h2>
-            <p>Découvrez les dernières fonctionnalités de notre application.</p>
-        </div>
-        <div class="row py-5">
-            <h2>Feedback et Suggestions</h2>
-            <p>Nous apprécions vos commentaires ! Laissez-nous savoir comment nous pouvons améliorer.</p>
-        </div>
-        <div class="row py-5">
-            <h2>Politiques</h2>
-            <p>Consultez nos politiques de confidentialité et nos conditions d'utilisation.</p>
+            <div class="accordion" id="faqAccordion">
+                <h2 class="pb-4">Instructions pour les Nouveaux Utilisateurs</h2>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="faqQuestion1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqAnswer1" aria-expanded="false" aria-controls="faqAnswer1">
+                            Créer mon compte utilisateur
+                        </button>
+                    </h3>
+                    <div id="faqAnswer1" class="accordion-collapse collapse" aria-labelledby="faqQuestion1" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body pb-1">
+                            Pour créer votre compte, suivez ces étapes :
+                            <ul>
+                                <li>Cliquez sur le bouton 'Se connecter' de la barre de navigation.</li>
+                                <li>En-dessous du formulairede connexion se trouve 'créer votre compte', cliquez sur le lien.</li>
+                                <li>Remplissez tous les champs du formulaire.</li>
+                                <li>Cliquez sur le bouton 'S'inscrire' pour valider votre inscription.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="faqQuestion2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqAnswer2" aria-expanded="false" aria-controls="faqAnswer2">
+                            Modifier mon compte utilisateur
+                        </button>
+                    </h3>
+                    <div id="faqAnswer2" class="accordion-collapse collapse" aria-labelledby="faqQuestion2" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body pb-1">
+                            Pour modifier ou ajouter des informations votre compte, suivez ces étapes :
+                            <ul>
+                                <li>Assurez-vous d'être bien connecté ou inscrit.</li>
+                                <li>Cliquez sur le bouton 'Mon compte' de la barre de navigation.</li>
+                                <li>Cliquez sur le bouton 'Modifer mon profil'.</li>
+                                <li>Deux formulaires s'offrent à vous, les information personnelles et l'adresse.</li>
+                                <li>En fonction du formulaire rempli, cliquez sur le bouton 'Enregistrer'.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="faqQuestion3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqAnswer3" aria-expanded="false" aria-controls="faqAnswer3">
+                            Comment puis-je me présenter en tant que directeur d'association ?
+                        </button>
+                    </h3>
+                    <div id="faqAnswer3" class="accordion-collapse collapse" aria-labelledby="faqQuestion3" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body pb-1">
+                            Pour créer un événement, suivez ces étapes :
+                            <ul>
+                                <li>Connectez-vous à votre compte.</li>
+                                <li>Cliquez sur 'Vous dirigez une association ?'.</li>
+                                <li>Remplissez les champs du formulaire puis cliquez sur 'Envoyer demande'.</li>
+                                <li>Renseignez les détails de l'événement et cliquez sur "Enregistrer".</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </main>
