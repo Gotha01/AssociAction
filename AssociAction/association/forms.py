@@ -17,7 +17,8 @@ class AssociationCreateForm(forms.ModelForm):
             'email': 'Adresse e-mail',
             'description': 'Description',
             'logo': "Logo de l'association",
-            'sector': "Secteur associatif"
+            'siret_number':"Numéro de SIRET",
+            'sector': "Secteur associatif",
 
         }
         widgets = {

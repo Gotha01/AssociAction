@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 from authentication.models import CustomUser, Role, Address
 
 
@@ -20,7 +22,16 @@ class Association(models.Model):
     phone_number = models.CharField(max_length=10, null=True, blank=True)
     email = models.EmailField(max_length=100, null=True, unique=True)
     description = models.CharField(max_length=150, null=True, blank=True)
-    logo = models.ImageField(null=True, blank=True)
+    logo = models.ImageField(upload_to='img/', default='img/test_sans_image.png')
+    siret_number = models.BigIntegerField(
+        null=True,
+        blank=True,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(99999999999999),
+        ]
+    )
+    
 
     def __str__(self):
         return self.associationname
