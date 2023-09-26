@@ -76,7 +76,6 @@ class CustomUser(BaseUser):
     email = models.EmailField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=10, null=True, blank=True)
     user_img = models.ImageField(null=True, blank=True, default=None)
-    id_sex = models.IntegerField(null=True, blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
     date_joined = models.DateTimeField(default=timezone.now)
      # Permission fields

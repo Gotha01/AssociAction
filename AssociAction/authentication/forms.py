@@ -57,11 +57,6 @@ class RegistrationForm(forms.Form):
         return user
     
 class UserProfileUpdateForm(forms.ModelForm):
-    SEX_CHOICES = (
-        (1, 'Masculin'),
-        (2, 'Féminin'),
-    )
-    sex = forms.ChoiceField(choices=SEX_CHOICES)
     class Meta:
         model = CustomUser
         fields = ['first_name', 'last_name', 'username', 'email', 'phone_number', 'date_of_birth',]
