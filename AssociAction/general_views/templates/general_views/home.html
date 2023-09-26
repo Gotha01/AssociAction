@@ -21,49 +21,38 @@
         </div>
     </section>
     <section 
-    class="container-fluid" 
-    style="height:400px; padding:64px 0 24px;">
+    class="container-fluid" id="sticker">
         <div class="row">
             <div class="col-12">
                 <h2 
-                class="fw-bold text-center" 
+                class="fw-bold text-center text-secondary" 
                 style="marging-bottom: 32px;">
-                    AssociAction :</br>au service de votre vie associative
+                    AssociAction :</br>Au service de votre vie associative
                 </h2>
             </div>
         </div>
-        <div class="row pt-5 gx-4 gx-lg-5 justify-content-center">
-            <div 
-            class="card text-center border-0 col-3" 
-            style="width:400px;height:350px;" >
-                <div class="card-body" >
-                    <img 
-                    class="card-img-top img-fluid" 
-                    style="width:auto; height:100px;" 
-                    src="{% static 'img/rechercher.png' %}" 
-                    alt="..."/>
-                    <h3 class="card-title">
+        <div class="row pt-5 gx-4 gx-lg-5 justify-content-evenly">
+            <div class="card home-card text-center border-0">
+                <div class="card-body">
+                    <img  class="card-img-top img-fluid" style="width:auto; height:100px;" src="{% static 'img/rechercher.png' %}" alt="..."/>
+                    <h3 class="card-title pt-3 ">
                         Chercher une association
                     </h3>
-                    <p class="card-texte">Par curiosité ou volonté de rejoindre une association, trouvez celle dont vous avez besoin.</p>
+                    <p class="card-texte pt-3">Par curiosité ou volonté de rejoindre une association, trouvez celle dont vous avez besoin.</p>
                 </div>
             </div>
-            <div 
-            class="card text-center border-0" 
-            style="width:400px; height:350px;">
+            <div class="card home-card text-center border-0">
                 <div class="card-body">
-                    <img class="img-fluid" style="width:auto; height:100px;" src="{% static 'img/evenement.png' %}" alt="..."/>
-                    <h3 class="card-title">Participer à un évennement</h3>
-                    <p class="card-texte">Si vous souhaiter participer aux rendez-vous, réunions et autres évènements de l'association de votre choix.</p>
+                    <img class="card-img-top img-fluid" style="width:auto; height:100px;" src="{% static 'img/evenement.png' %}" alt="..."/>
+                    <h3 class="card-title pt-3 px-0">Participer à un évennement</h3>
+                    <p class="card-texte pt-3">Si vous souhaiter participer aux rendez-vous, réunions et autres évènements de l'association de votre choix.</p>
                 </div>
             </div>
-            <div 
-            class="card text-center border-0" 
-            style="width:400px; height:350px;">
+            <div class="card home-card text-center border-0">
                 <div class="card-body">
-                    <img class="img-fluid" style="width:auto; height:100px;" src="{% static 'img/demenager.png' %}" alt="..."/>
-                    <h3 class="card-title">Changer de ville sans changer d'activité</h3>
-                    <p class="card-texte">Déménagez en sachant que votre activité associative pourra se poursuivre dans votre prochain habitat.</p>
+                    <img class="card-img-topimg-fluid" style="width:auto; height:100px;" src="{% static 'img/demenager.png' %}" alt="..."/>
+                    <h3 class="card-title pt-3 px-0">Changer de ville sans changer d'activité</h3>
+                    <p class="card-texte pt-3">Déménagez en sachant que votre activité associative pourra se poursuivre dans votre prochain habitat.</p>
                 </div>
             </div>
         </div>

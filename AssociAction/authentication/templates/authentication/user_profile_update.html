@@ -24,7 +24,7 @@
             <div class="col-xl-10 col-md-10 col-sm-12">
                 <h1 class="text-center text-secondary pb-4">Modification du profil</h1>
                 <p class="text-center text-secondary">Remplissez vos information de profil afin de nous aider à afiner vos recherche</p>
-                <div class="card mb-4 p-4" style="" style>
+                <div class="card mb-4 p-4" style="background-color:#f2f2f2">
                     <div class='row'>
                         <div class="col-3 px-4">
                             <div style="width:200px, min-height:250px;">
@@ -43,17 +43,17 @@
                                     <div class="my-3">
                                         <div class="row justify-content-center">
                                             <div class="col-4">
-                                                <label for="{{ img_form.user_img.id_for_label }}" class="custom-file-button col-12">
+                                                <label for="{{ img_form.user_img.id_for_label }}" class="custom-file-button col-12 rounded-pill">
                                                     Choisir une image
                                                 </label>
                                                 <input type="file" class="custom-file-input" name="{{ img_form.user_img.name }}" id="{{ img_form.user_img.id_for_label }}" accept="image/*">
                                             </div>
                                             <div class="col-4">
-                                                <button type="submit" class="btn btn-dark col-12" name="submit_image"style="height:40px;">Valider l'image de profil</button>
+                                                <button type="submit" class="btn btn-dark col-12 rounded-pill" name="submit_image"style="height:40px;">Valider l'image de profil</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="col-4 btn btn-danger" name="delete_image" style="height:40px;">Supprimer l'image</button>
+                                    <button type="submit" class="col-4 btn btn-danger rounded-pill" name="delete_image" style="height:40px;">Supprimer l'image</button>
                                 </div>
                             </form>
                         </div>
@@ -81,7 +81,7 @@
                                 {% endfor %}
                                 <div class="text-center pt-4">
                                     <p class="text-center py-0">Champs obligatoires "*"</p>
-                                    <button type="submit" name="save_user_form" class="btn btn-dark">Enregistrer les informations</button>
+                                    <button type="submit" name="save_user_form" class="btn btn-dark rounded-pill">Enregistrer les informations</button>
                                 </div>
                             </form>
                         </div>
@@ -98,7 +98,7 @@
                                 {% endfor %}
                                 <div class="text-center pt-2">
                                     <p class="text-center py-0">Champs obligatoires "*"</p>
-                                    <button type="submit" name="save_address_form" class="btn btn-dark">Enregistrer l'adresse</button>
+                                    <button type="submit" name="save_address_form" class="btn btn-dark rounded-pill">Enregistrer l'adresse</button>
                                 </div>
                             </form>
                         </div>
@@ -108,7 +108,7 @@
         </div>
         <div class="row justify-content-center my-5">
             <div class="col-3 mb-5">
-                <a href="{% url 'profile' %}" class="btn btn-primary">Retour à la page de profil</a>
+                <a href="{% url 'profile' %}" class="btn btn-primary rounded-pill">Retour à la page de profil</a>
             </div>
         </div>
     </div>

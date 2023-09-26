@@ -1,69 +1,29 @@
 {% load static %}
-<section style="height: 472px; background-color: #107aca; position: relative;">
-    <style>
-        .form-container{
-            border-radius: 12px;
-            padding: 10px;
-        }
-
-        #search-button {
-            background: linear-gradient(180deg, #3fd5ce, #07b0a9 58.85%, #049c96 97.02%);
-            box-shadow: none;
-            font-size: 14px;
-            font-weight: bold;
-            font-family: arial;
-            width: 100%;"
-        }
-    
-        #search-button:active {
-            background: linear-gradient(180deg, #049c96, #07b0a9 58.85%, #3fd5ce 97.02%);
-            box-shadow: none;
-        }
-        
-        #search-button:hover {
-            background: linear-gradient(180deg, #049c96, #07b0a9 58.85%, #3fd5ce 97.02%);
-            box-shadow: none;
-        }
-
-        .form-control:focus {
-            border-color: inherit;
-            box-shadow: none;
-        }
-
-        .form-control:hover {
-            border-color: inherit;
-            box-shadow: none;
-        }
-    </style>
-    <div class="container p-5" style="padding-right: 250px;">
-        <div class="row" style="margin-top: 90px;">
-            <div class="col-8">
-                <div style="
-                    color: white;
-                    font-family: Montserrat, arial, sans-serif;
-                    font-weight:bolder;
-                    font-size:32px">
+<section id="search_form">
+    <div class="container p-4 p-md-5">
+        <div class="row" id="find_text">
+            <div class="col-12 col-md-8">
+                <div class="text-light">
                     Trouvez l'association qui répondra à vos besoins.
                 </div>
-
             </div>
         </div>
         <div class="row mt-4">
-            <div class="col-7">
+            <div class="col-xl-7">
                 <div class="form-container bg-white p-0">
                     <form method="post" class="searchbar">
                         {% csrf_token %}
                         <div class="row" style="height:60px;">
                             {% for field in form %}
                                 {% if field.name == "quoi" %}
-                                <div class="col-md-4">
+                                <div class="col-md-4 pb-2">
                                     <div class="form-group">
                                         <label for="{{ field.id }}" class="sr-only">{{ field.label }}</label>
                                         <input class='form-control border-0' style="height:60px;" aria-label="{{ field.label }}" name="{{ field.name }}" placeholder="Nom, secteur associatif, ..."></input>
                                     </div>
                                 </div>
                                 {% elif field.name == "ou" %}
-                                <div class="col-md-4">
+                                <div class="col-md-4 pb-2">
                                     <div class="form-group">
                                         <label for="{{ field.id }}" class="sr-only">{{ field.label }}</label>
                                         <input class='form-control border-0' style="height:60px;" aria-label="{{ field.label }}" name="{{ field.name }}" placeholder="Où?"></input>
@@ -71,7 +31,7 @@
                                 </div>
                                 {% endif %}
                             {% endfor %}
-                            <div class="col-md-4">
+                            <div class="col-md-4 pb-2">
                                 <div class="form-group d-flex justify-content-end p-1" style="height: 60px;">
                                     <button 
                                         id="search-button"
@@ -87,15 +47,5 @@
             </div>
         </div>
     </div>
-    <img 
-        src="{% static 'img/accueil.png' %}" 
-        style="
-            position: absolute;    
-            bottom: 0;
-            right: 0;
-            max-height:438px;
-            height: auto;
-            width: auto;
-            max-width: 50%;
-            pointer-events: none;">
+    <img src="{% static 'img/accueil.png' %}" class="search_img d-none d-md-block"">
 </section>
