@@ -24,8 +24,10 @@ def create_event(request, association_id):
     return render(request, 'events/create_event.html', {'form': form, 'association': association})
 
 def association_events(request, association_id):
-    association_events = Event.objects.filter(associations=association_id)
-    return render(request, 'events/association_events.html', {'association_events': association_events})
+    association = Association.objects.get(id=association_id)
+    association_events = AssociationEvent.objects.filter(association=association)
+    association_events = association_events.order_by('event__date')
+    return render(request, 'events/association_events.html', {'association': association, 'association_events': association_events})
 
 def event_detail(request, association_id, event_id):
     event = Event.objects.get(pk=event_id)

@@ -28,3 +28,6 @@ class AssociationEvent(models.Model):
     class Meta:
         db_table = 'event_association'
         unique_together = ('association', 'event')
+    
+    def __str__(self):
+        return f"{self.association}, {self.event}"

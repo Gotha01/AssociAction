@@ -2,17 +2,25 @@
 
 {% block content %}
 <main>
-  <h2>Liste des événements associés</h2>
-  <ul class='list-unstyled'>
-    {% for event in association_events %}
-      <li>
-        <a href="{% url 'event_detail' association_id=event.id event_id=event.id %}" 
-           class="btn btn-primary col-4 my-4 rounded-3" 
-           style="font-weight: bold">
-          {{ event.event_name }}
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
+  <div class='container'>
+    <div class='row pt-4 justify-content-center'>
+      <h1 class='col-12 col-lg-6 py-4 text-center text-primary' style='font-weight: bold;'>
+        {{association}}
+      </h1>
+      <div class='row pt-4 justify-content-center'>
+      <h2 class='col-6 col-md-8 pb-4 text-center'>Liste des événements</h2>
+      <ul class='list-unstyled'>
+        {% for event in association_events %}
+        <div class='row justify-content-center'>
+          <li class="col-3 text-center">
+            <a href="{% url 'event_detail' association_id=event.id event_id=event.id %}">
+              <p>>>{{ event.event }}</p>
+            </a>
+          </li>
+        </div>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
 </main>
 {% endblock %}

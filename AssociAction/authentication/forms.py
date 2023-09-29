@@ -6,7 +6,7 @@ from .models import CustomUser, Address
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=50, label="Nom d'utilisateur")
+    username = forms.CharField(max_length=50, label="Email")
     password = forms.CharField(widget=forms.PasswordInput, label='Mot de passe')
     form_title = "Se connecter"
 

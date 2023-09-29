@@ -93,7 +93,7 @@ def create_initial_sectors(sender, **kwargs):
 
 @receiver(post_migrate)
 def create_initial_roles(sender, **kwargs):
-    if sender.name == 'role':
+    if sender.name == 'association':
         roles = [
             {
                 "rolename": "Director",

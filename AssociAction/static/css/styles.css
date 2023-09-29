@@ -352,7 +352,7 @@ sup {
 
 a {
   color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover {
   --bs-link-color-rgb: var(--bs-link-hover-color-rgb);
@@ -12222,4 +12222,13 @@ svg{fill:#eee}
   max-width: 50%;
   pointer-events: none;
 }
+
+.hide-hover{
+  color: #ddd;
+}
+
+.hide-hover:hover{
+  color: #212529;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */

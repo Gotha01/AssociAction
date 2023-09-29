@@ -65,7 +65,7 @@ class AssociationSector(models.Model):
 class Role(models.Model):
     """Class defining all possible user roles"""
     rolename = models.CharField(max_length=100, unique=True)
-    description = models.CharField(max_length=150, null=True, blank=True)
+    description = models.CharField(max_length=450, null=True, blank=True)
 
     class Meta:
         db_table = 'role'
@@ -84,4 +84,4 @@ class UserRoleAssociation(models.Model):
         unique_together = ('user', 'association')
 
     def __str__(self):
-        return self.user
+        return f"{self.user} est {self.role} dans {self.association}"

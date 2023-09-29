@@ -1,5 +1,5 @@
 from django.apps import AppConfig
-from django.db.models.signals import post_migrate, post_save
+from django.db.models.signals import post_migrate
 
 
 class AssociationConfig(AppConfig):
@@ -7,10 +7,9 @@ class AssociationConfig(AppConfig):
     name = 'association'
 
     def ready(self):
-        from .models import Association
         from .signals import create_initial_sectors, create_initial_roles
 
         # Signal to create basic sectors
         post_migrate.connect(create_initial_sectors, sender=self)
         # Signal to create authorization groups
-        post_migrate.connect(create_initial_roles, sender=Association)
+        post_migrate.connect(create_initial_roles, sender=self)
