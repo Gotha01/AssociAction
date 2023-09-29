@@ -1,16 +1,20 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from authentication.models import CustomUser, Role, Address, UserAddress
+from authentication.models import CustomUser, Address, UserAddress
 
 class CustomUserAdmin(UserAdmin):
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        ('Personal Info', {'fields': ('first_name', 'last_name', 'username', 'phone_number', 'user_img', 'date_of_birth')}),
+        ('Permissions', {'fields': ('is_admin', 'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        ('Important dates', {'fields': ('last_login', 'date_joined')}),
+    )
     list_display = (
-        'id',
         'email',
         'username',
         'first_name',
         'last_name',
         'phone_number',
-        'id_sex',
         'date_of_birth',
         'is_active',
         'is_staff',
@@ -18,13 +22,12 @@ class CustomUserAdmin(UserAdmin):
         'date_joined',
     )
     list_filter = (
-        'username',
-        'last_name',
         'is_active',
+        'is_staff',
         'is_superuser',
-        'date_joined'
     )
-    list_per_page = 25
+    search_fields = ('email', 'username', 'first_name', 'last_name')
+    ordering = ('email',)
 
 class CustomAddressAdmin(UserAdmin):
     list_display = (
@@ -39,20 +42,6 @@ class CustomAddressAdmin(UserAdmin):
     )
     list_per_page = 25
 
-class CustomRoleAdmin(UserAdmin):
-    list_display = (
-        'idrole',
-        'rolename',
-        'rolepermission',
-        'description',
-    )
-    list_filter = (
-        'rolename',
-        'rolepermission',
-    )
-
-
-admin.site.register(CustomUser)
+admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Address)
 admin.site.register(UserAddress)
-admin.site.register(Role)

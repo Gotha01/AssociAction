@@ -70,7 +70,7 @@ class UserProfileUpdateForm(forms.ModelForm):
             'date_of_birth': 'Date de naissance',
         }
         widgets = {
-            'date_of_birth': forms.DateInput(attrs={'type': 'date','placeholder':'06/03/1990'}),
+            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
         }
 
     def __init__(self, *args, **kwargs):

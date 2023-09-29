@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-from authentication.models import CustomUser, Role, Address
+from authentication.models import CustomUser, Address
 
 
 class Sector(models.Model):
@@ -32,7 +32,6 @@ class Association(models.Model):
         ]
     )
     
-
     def __str__(self):
         return self.associationname
     
@@ -54,6 +53,26 @@ class AssociationAddress(models.Model):
         db_table = 'association_address'
         unique_together =('association', 'address')
 
+class AssociationSector(models.Model):
+    """Class defining a user's role in an association"""
+    association = models.ForeignKey(Association, on_delete=models.CASCADE)
+    sector = models.ForeignKey(Sector, on_delete=models.CASCADE)
+    
+    class Meta:
+        db_table = 'sector_association'
+        unique_together =('association', 'sector')
+
+class Role(models.Model):
+    """Class defining all possible user roles"""
+    rolename = models.CharField(max_length=100, unique=True)
+    description = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        db_table = 'role'
+
+    def __str__(self):
+        return self.rolename
+
 class UserRoleAssociation(models.Model):
     """Class used to define the user's role in the association"""
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -64,11 +83,5 @@ class UserRoleAssociation(models.Model):
         db_table = 'user_role_association'
         unique_together = ('user', 'association')
 
-class AssociationSector(models.Model):
-    """Class defining a user's role in an association"""
-    association = models.ForeignKey(Association, on_delete=models.CASCADE)
-    sector = models.ForeignKey(Sector, on_delete=models.CASCADE)
-    
-    class Meta:
-        db_table = 'sector_association'
-        unique_together =('association', 'sector')
+    def __str__(self):
+        return self.user
