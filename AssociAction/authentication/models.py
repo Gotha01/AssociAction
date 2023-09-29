@@ -1,25 +1,10 @@
-from django.contrib.auth.models import AbstractBaseUser as BaseUser, BaseUserManager as UserManager
+from django.contrib.auth.models import AbstractBaseUser as BaseUser, BaseUserManager as UserManager, PermissionsMixin
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 
 from AssociAction.settings import AUTH_USER_MODEL
 
-
-class Role(models.Model):
-    """Class defining all possible user roles"""
-    rolename = models.CharField(max_length=100, unique=True)
-    rolepermission = models.IntegerField()
-    description = models.CharField(max_length=150, null=True, blank=True)
-
-    class Meta:
-        db_table = 'role'
-
-    def __str__(self):
-        return self.rolename
-    
-    class Meta:
-        db_table = 'role'
 
 class UserManager(UserManager):
     def create_user(self, first_name, last_name, username, email, password=None):
@@ -55,20 +40,7 @@ class UserManager(UserManager):
         user.save(using=self._db)
         return user
     
-    def create_staffuser(self, first_name, last_name, username, email, password=None):
-        user = self.create_user(
-            email = self.normalize_email(email),
-            username = username,
-            first_name = first_name,
-            last_name = last_name,
-            password = password
-        )
-        user.is_active = True
-        user.is_staff = True
-        user.save(using=self._db)
-        return user
-    
-class CustomUser(BaseUser):
+class CustomUser(BaseUser, PermissionsMixin):
      # Common Fields
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)

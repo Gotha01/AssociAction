@@ -30,6 +30,27 @@ class AssociationCreateForm(forms.ModelForm):
             'logo': forms.ClearableFileInput(attrs={'required': 'required'}),
         }
 
+class AssociationUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Association
+        fields = ['associationname', 'email', 'acronym', 'phone_number', 'description', 'logo', 'siret_number']
+        labels = {
+            'associationname': "Nom de l'association",
+            'acronym': 'Acronyme',
+            'phone_number': 'Numéro de téléphone',
+            'email': 'Adresse e-mail',
+            'description': 'Description',
+            'logo': "Logo de l'association",
+            'siret_number': "Numéro de SIRET",
+        }
+        widgets = {
+            'associationname': forms.TextInput(),
+            'email': forms.EmailInput(),
+            'acronym': forms.TextInput(),
+            'phone_number': forms.TextInput(),
+            'description': forms.TextInput(),
+            'logo': forms.ClearableFileInput(),
+        }
 
 class AskAssociationRights(forms.Form):
     content = forms.CharField(label='Contenu de la demande  :', widget=forms.Textarea)

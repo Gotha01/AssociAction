@@ -5,10 +5,11 @@ from .models import Event, AssociationEvent
 from .forms import EventForm
 from association.models import Association
 
-def staff_check(user):
-    return user.is_staff
 
-@user_passes_test(staff_check)
+def admin_check(user):
+    return user.is_superuser
+
+@user_passes_test(admin_check)
 def create_event(request, association_id):
     association = Association.objects.get(id=association_id)
     if request.method == 'POST':

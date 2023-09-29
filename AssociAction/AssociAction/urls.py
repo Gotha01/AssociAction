@@ -28,6 +28,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', gv.home, name='home'),
     path('help_center/', gv.help_center, name='help'),
+    path('contact/', gv.contact, name='contact'),
+    path('legals/', gv.legals,name='legals'),
     #Authentication urls
     path('register/', authv.RegisterView.as_view(), name='register'),
     path('login/', authv.LoginPageView.as_view(), name='login'),
@@ -38,6 +40,7 @@ urlpatterns = [
     #Association urls
     path('association/<int:association_id>/', assoviews.association_detail, name='association_detail'),
     path('association_create/', assoviews.create_association, name='create_association'),
+    path('association/<int:association_id>/update', assoviews.update_association, name='update_association'),
     path('association_address/<int:association_id>/', assoviews.association_address, name="association_address"),
     path('association_list/', assoviews.association_list, name='association_list'),
     #Association rights url

@@ -59,6 +59,13 @@
             </div>
             {% endif %}
           </div>
+          {% if request.user.is_superuser %}
+          <div class='row justify-content-center'>
+            <div class="col-6">
+              <a href="{% url 'update_association' association.id %}" class="btn btn-primary my-4 rounded-pill" style="font-weight: bold">Modifier les informations de l'association</a>
+            </div>
+          </div> 
+          {% endif %}
           <div class='row justify-content-around'>
             <div class="col-6">
               <a href="{% url 'home' %}" class="btn btn-dark my-4 rounded-pill" style="font-weight: bold">Retourner à la page d'accueil</a>

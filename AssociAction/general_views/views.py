@@ -41,3 +41,9 @@ def home(request):
 
 def help_center(request):
     return render(request, "general_views/help.html")
+
+def legals(request):
+    return render(request, "general_views/legals.html")
+
+def contact(request):
+    return render(request, "general_views/contact.html")
