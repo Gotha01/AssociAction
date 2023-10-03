@@ -16,19 +16,34 @@
               <h5 class="pb-3 text-primary" style="font-weight:bold; font-size:30px;">{{ association.associationname }}</h5>
             </div>
             <div class='col-12 pb-5 d-none d-md-block'>
+              {% if association.logo %}
               <img 
                   class="card-img-top img-fluid rounded-5" 
                   style="max-width: 500px; max-height: 250px; width: auto; height: 100%;" 
                   src="{{ association.logo.url }}" 
                   alt="{{ association.associationname }} Logo">
+          {% else %}
+              <img 
+                  class="card-img-top img-fluid rounded-5" 
+                  style="max-width: 500px; max-height: 250px; width: auto; height: 100%;" 
+                  src="{% static 'img/asso_sans_image.png' %}" 
+                  alt="{{ association.associationname }} Logo">
+          {% endif %}
             </div>
           </div>
+          {% if director or admin or member %}
+          <div class='row'>
+            <div class='col-12 text-cente pb-5' style='font-weight: bold; font-size:24px; font-family:Montserrat, arial, sans-serif;'>
+              Vous êtes {% if director %}le directeur{% elif admin %}administrateur{% elif member %}membre{% endif %} de cette association.
+            </div>
+          </div>
+          {% endif %}
           <div class='row'>
             <div class='col-xl-6 col-12'>
               <div class='container'>
                 <div class="row">
                   <div class="card-body pt-2">
-                    <div class="card-header pb-3 border-0" style="font-weight:bold; font-size:24px;">Informations</div>
+                    <div class="card-header pb-3 border-0 text-primary" style="font-weight:bold; font-size:24px; font-family:Montserrat, arial, sans-serif;">Informations</div>
                     <p class="card-text border-top border-2">Secteur: <span style="font-weight:bold;">{{ association.get_sector }}</span></p>
                     <p class="card-text mt-3 border-top border-2">Acronyme: <span style="font-weight:bold;">{{ association.acronym }}</span></p>
                     <p class="card-text mt-3 border-top border-2">Téléphone: <span style="font-weight:bold;">{{ association.phone_number }}</span></p>
@@ -45,30 +60,27 @@
           <div class='col-xl-6 col-12'>
             {% include "events/include_events.html" %}
           </div>
+          {% if next_event != None %}
           <div class='row justify-content-around'>
-            {% if request.user.is_superuser %}
-            <div class="col-6">
-              <a href="{% url 'create_event' association_id=association.id %}" class="btn btn-primary mt-4 rounded-pill" style="font-weight: bold">Créer un événement</a>
+              <div class="col-6">
+                <a href="{% url 'all_asso_event' association_id=association.id %}" class="btn btn-primary mt-4 rounded-pill" style="font-weight: bold">Tous les événements</a>
+              </div>
             </div>
-            <div class="col-6">
-              <a href="{% url 'all_asso_event' association_id=association.id %}" class="btn btn-primary mt-4 rounded-pill" style="font-weight: bold">Tous les événements</a>
-            </div>
-            {% else %}
-            <div class="col-6">
-              <a href="#" class="btn btn-primary mt-4 rounded-3" style="font-weight: bold">Je suis adhérent</a>
-            </div>
-            {% endif %}
-          </div>
-          {% if request.user.is_superuser %}
-          <div class='row justify-content-center'>
-            <div class="col-6">
-              <a href="{% url 'update_association' association.id %}" class="btn btn-primary my-4 rounded-pill" style="font-weight: bold">Modifier les informations de l'association</a>
-            </div>
-          </div> 
           {% endif %}
-          <div class='row justify-content-around'>
+          {% if request.user.is_authenticated %}
+            {% if admin or director %}
+              <div class='row justify-content-center'>
+                <div class="col-6">
+                  <a href="{% url 'update_association' association.id %}" class="btn btn-primary my-4 rounded-pill" style="font-weight: bold">Modifier les informations de l'association</a>
+                </div>
+                <div class="col-6">
+                  <a href="{% url 'create_event' association_id=association.id %}" class="btn btn-primary mt-4 rounded-pill" style="font-weight: bold">Créer un événement</a>
+                </div>
+              </div>
+          {% endif %}
+          <div class='row justify-content-around pb-5'>
             <div class="col-6">
-              <a href="{% url 'home' %}" class="btn btn-dark my-4 rounded-pill" style="font-weight: bold">Retourner à la page d'accueil</a>
+              <a href="{% url 'home' %}" class="btn btn-dark my-4 rounded-pill" style="font-family: Montserrat, arial, sans-serif;font-weight: bold">Retourner à la page d'accueil</a>
             </div>
           </div>           
         </div>

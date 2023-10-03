@@ -53,13 +53,21 @@
                                 {% if user.get_address %}
                                 <div class="col-12 py-2">
                                     <label>Adresse :</label>
-                                    {{  user.get_address }}
+                                    {{ user.get_address }}
                                 </div>
+                                {% endif %}
+                                {% if roles %}
+                                    {% for role in roles %}
+                                        <div class="col-12 py-2">
+                                            <label>Role :</label>
+                                            {{ role.role }} de l'association '{{ role.association }}'
+                                        </div>
+                                    {% endfor %}
                                 {% endif %}
                             </div>
                         </div>
                         <div class="pt-2">
-                            <a href="{% url 'update_profile' %}" class="btn btn-primary m-4 rounded-pill">
+                            <a href="{% url 'update_profile' %}" class="btn btn-primary m-4 rounded-pill"style="font-family: Montserrat, arial, sans-serif;">
                                 Modifier le profil
                             </a>
                         </div>

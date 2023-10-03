@@ -12,6 +12,14 @@
         </div>
       </div>
     </div>
+      <div class='row justify-content-around'>
+        <div class="col-6 text-center">
+          <a href="{% url 'association_detail' association_id=association_id %}" class="btn btn-dark my-4 rounded-pill" style="font-family: Montserrat, arial, sans-serif;font-weight: bold">Retourner à la page de l'assocation</a>
+        </div>
+        <div class="col-6 text-center">
+          <a href="{% url 'home' %}" class="btn btn-dark my-4 rounded-pill" style="font-family: Montserrat, arial, sans-serif;font-weight: bold">Retourner à la page d'accueil</a>
+        </div>
+      </div>  
   </section>
 </main>
 {% endblock %}

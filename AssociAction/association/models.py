@@ -22,7 +22,7 @@ class Association(models.Model):
     phone_number = models.CharField(max_length=10, null=True, blank=True)
     email = models.EmailField(max_length=100, null=True, unique=True)
     description = models.CharField(max_length=150, null=True, blank=True)
-    logo = models.ImageField(upload_to='img/', default='img/test_sans_image.png')
+    logo = models.ImageField(null=True, blank=True, default=None)
     siret_number = models.BigIntegerField(
         null=True,
         blank=True,

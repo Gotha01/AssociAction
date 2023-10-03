@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Q
 from .forms import SearchForm
-from association.models import Association, AssociationSector
+from association.models import Association, UserRoleAssociation
 
 def home(request):
     form = SearchForm()
@@ -46,4 +46,8 @@ def legals(request):
     return render(request, "general_views/legals.html")
 
 def contact(request):
-    return render(request, "general_views/contact.html")
+    role = False
+    user_role = UserRoleAssociation.objects.filter(role=1, user=request.user)
+    if user_role:
+        role = True
+    return render(request, "general_views/contact.html", {'role': role})

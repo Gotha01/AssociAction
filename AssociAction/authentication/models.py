@@ -95,7 +95,7 @@ class Address(models.Model):
 class UserAddress(models.Model):
     """Class used to model the relationship between users and their address"""
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
-    address = models.ForeignKey(Address, null=True, on_delete=models.SET_NULL)
+    address = models.ForeignKey(Address, null=True, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('user', 'address')

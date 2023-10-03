@@ -1,14 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.core.mail import send_mail
-from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 
-from events.models import Event, AssociationEvent
+from events.models import AssociationEvent
 from authentication.forms import AddressUpdateForm
-from .models import Association, Sector, AssociationAddress, AssociationSector
-from .forms import AssociationCreateForm, AssociationUpdateForm, AskAssociationRights
-from decouple import config
+from .models import Association, Sector, AssociationAddress, AssociationSector, UserRoleAssociation
+from .forms import AssociationCreateForm, AssociationUpdateForm, AssociationImageUpdateForm
+
 
 
 def superuser_check(user):
@@ -45,68 +43,77 @@ def association_address(request, association_id):
 
 @login_required
 def update_association(request, association_id):
-    if request.method == 'POST':
-        form = AssociationUpdateForm(request.POST, request.FILES)
-        if form.is_valid():
-            association = form.save()
-            sector_id = request.POST.get('sector')
-            messages.success(request, "Association mise à jour avec succès.")
-            return redirect('association_address', association_id=association.id)
-    else:
-        form = AssociationCreateForm()
-    return render(request, 'association/association_update.html', {'form': form})
+    association = get_object_or_404(Association, id=association_id)
+    association_form = AssociationUpdateForm(instance=association)
+    img_form = AssociationImageUpdateForm(request.FILES, instance=association)
 
+    if request.method == 'POST':
+        association_form = AssociationUpdateForm(request.POST, instance=association)
+        img_form = AssociationImageUpdateForm(request.POST, request.FILES, instance=association)
+        
+        if association_form.is_valid():
+            association_form.save()
+            return redirect('association_detail', association_id=association.id)
+        
+        if 'submit_logo' in request.POST:
+            if img_form.is_valid():
+                img_form.save()
+                return redirect('association_detail', association_id=association.id)
+            
+        elif "delete_logo" in request.POST:
+            association = Association.objects.get(id=association_id)
+            image_field_file = association.logo
+            if image_field_file:
+                image_field_file.delete()
+                association.logo = None
+                association.save()
+                messages.success(request, "Image de profil supprimée avec succès.")
+                return redirect('association_detail', association_id=association.id)
+
+    return render(
+        request,
+        'association/association_update.html',
+        {
+            'association': association,
+            'association_form': association_form,
+            'img_form':img_form,
+        }
+    )
 
 def association_detail(request, association_id):
     association = get_object_or_404(Association, id=association_id)
+    director, admin, member = False, False, False
+    if request.user.is_authenticated:
+        user_role_association = UserRoleAssociation.objects.filter(
+            association=association,
+            user=request.user
+        ).first()
+
+        if user_role_association:
+            role = user_role_association.role.rolename
+            if role == "Director":
+                director = True
+            elif role == "Admin":
+                admin = True
+            elif role == "Member":
+                member = True
+
     try:
         next_asso_event = AssociationEvent.objects.filter(association=association).latest('id')
-        next_event=next_asso_event.event
-        return render(
-            request,
-            'association/association_detail.html',
-            {'association':association, 'next_event':next_event}
-        )
+        next_event = next_asso_event.event
     except AssociationEvent.DoesNotExist:
         next_event = None
-        return render(
-            request,
-            'association/association_detail.html',
-            {'association' : association, 'next_event':next_event}
-        )
-
-    
-@login_required
-def request_dir_rights_view(request):
-    if request.method == 'POST':
-        form = AskAssociationRights(request.POST)
-        if form.is_valid():
-            subject = "Demande d'autorisation sur une application."
-            contenu = form.cleaned_data['contenu']
-            association_already_in_application = form.cleaned_data['association_deja_dans_application']
-            nom_association = form.cleaned_data['nom_association']
-            destinataire = config('admin_mail')
-            
-            if association_already_in_application:
-                # Specific treatment if the association is already in the application
-                if nom_association:
-                    contenu += f"\nNom de l'association : {nom_association}"
-                
-            # send e-mail
-            send_mail(
-                subject,
-                contenu,
-                'votre_email@example.com',
-                [destinataire],
-                fail_silently=False,
-            )
-            
-            return redirect('page_confirmation')
-            
-    else:
-        form = AskAssociationRights()
-    
-    return render(request, 'association/rights_request.html', {'form': form})
+    return render(
+        request,
+        'association/association_detail.html',
+        {
+            'association':association,
+            'next_event':next_event,
+            'director':director,
+            'admin':admin,
+            'member':member,
+        }
+    )
 
 def association_list(request, context):
     associations = context.get('associations', [])

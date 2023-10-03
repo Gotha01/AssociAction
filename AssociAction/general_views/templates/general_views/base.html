@@ -31,7 +31,7 @@
                     <div class='collapse navbar-collapse' id="navbarNav">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link my-auto col-xl-12 col-7 ml-auto" href="{% url 'request_dir_rights' %}">
+                                <a class="nav-link my-auto col-xl-12 col-7 ml-auto" href="{% url 'contact' %}">
                                     <button 
                                         type="button" 
                                         class="btn btn-primary border-white bg-white py-0 mx-3"
@@ -79,7 +79,7 @@
                                         type="button" 
                                         class="btn text-white border-blue bg-blue ps-1"
                                         id="my_account">
-                                        Mon compte
+                                        {{request.user.first_name}} {{request.user.last_name}}
                                     </button>
                                 </a>
                             </li>
@@ -118,7 +118,7 @@
         {% block content %}
         {% endblock %}
         <footer>
-            <nav class="bg-blue fixed-bottom" style="min-height:70px;">
+            <nav class="bg-blue fixed-bottom" style="min-height:65px;">
                 <div class="container">
                     <div class="row d-flex justify-content-center">
                         <div class="col-6 text-center pt-3">

@@ -21,7 +21,7 @@ class Command(BaseCommand):
             phone_number='1234567890',
             email='as-1@example.com',
             description='Association Sportive de Paris',
-            logo='img/sport_paris.jpg',
+            logo='for_test_sport_paris.jpg',
             siret_number=45645645645645,
         )
         association2, _ = Association.objects.get_or_create(

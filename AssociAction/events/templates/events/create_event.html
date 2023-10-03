@@ -13,7 +13,10 @@
               <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Créer l'événement</button>
+                <button 
+                  type="submit" 
+                  class="btn btn-primary rounded-pill"
+                  style="font-family: Montserrat, arial, sans-serif;">Créer l'événement</button>
               </form>
             </div>
           </div>

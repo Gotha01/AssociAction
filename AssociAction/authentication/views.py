@@ -1,14 +1,13 @@
-import os
-
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.views.generic import View
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from AssociAction.settings import MEDIA_ROOT
 from . import forms as fms
 from .models import Address, UserAddress, CustomUser
+from association.models import UserRoleAssociation
+
 
 User = get_user_model()
 
@@ -78,33 +77,47 @@ class LoginPageView(View):
 @login_required
 def profile_view(request):
     user = request.user
-    return render(request, 'authentication/user_profile.html', {'user': user})
+    try:
+        roles = UserRoleAssociation.objects.filter(user=user)
+    except roles.DoesNotExist:
+        roles = None
+    context = {'user':user,'roles':roles}
+    return render(request, 'authentication/user_profile.html', context)
 
 @login_required
 def update_profile_view(request):
+    user = request.user
     user_form = fms.UserProfileUpdateForm(instance=request.user)
     img_form = fms.UserImageUpdateForm(request.FILES, instance=request.user)
-    address_form = fms.AddressUpdateForm()
+    try:
+        user_address = UserAddress.objects.get(user=user).address
+    except UserAddress.DoesNotExist:
+        user_address = None
+    address_form = fms.AddressUpdateForm(instance=user_address)
 
     if request.method == 'POST':
         img_form = fms.UserImageUpdateForm(request.POST, request.FILES, instance=request.user)
-        user = request.user
-
+        
         if 'save_address_form' in request.POST:
             address_form = fms.AddressUpdateForm(request.POST)
             if address_form.is_valid():
-                user_address = UserAddress.objects.filter(user=user).first()
                 if user_address:
-                    old_address = user.get_address()
-                    existing_user_address = address_form.save()
-                    user_address.address = existing_user_address
-                    user_address.save()
-                    old_address.delete()
+                    Address.objects.get(
+                        addresslineone=user_address.addresslineone,
+                        postalcode=user_address.postalcode,
+                        cityname=user_address.cityname,
+                        ).delete()
                     messages.success(request, "Adresse modifiée avec succès")
                 else:
-                    new_address = address_form.save()
-                    UserAddress.objects.create(user=user,address=new_address)
                     messages.success(request, "Adresse enregistrée avec succès")
+                new_address = address_form.save()
+                user_address, _ = UserAddress.objects.update_or_create(
+                    user = user,
+                    defaults={
+                        'user':user, 
+                        'address':new_address
+                    }
+                )
                 return redirect('profile')
             
         elif 'submit_image' in request.POST:

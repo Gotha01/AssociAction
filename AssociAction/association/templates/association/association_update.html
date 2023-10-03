@@ -1,29 +1,59 @@
 {% extends 'general_views/base.html' %}
 
 {% block content %}
-<main>
+<main class='pb-5'>
     <section class='container'>
         <div class="row justify-content-center">
             <form class="col-8 border rounded-4 border-5 mt-5" method="post" enctype="multipart/form-data">
-                <h3 class="text-center text-primary py-3">Information générale de l'association</h3>
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="form-group">
-                    <div class="row justify-content-center" style="font-weight:bold;">
-                        <div class="col-md-4 col-8 py-2 text-center">
-                            <label class="text-dark" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                        </div>
-                        <div class="col-md-4 col-8 py-2 text-center border-0">
-                            {{ field }}
+                <h3 class="text-center text-primary py-3">Logo de l'association</h3>
+                <div class="row justify-content-center">
+                    <img 
+                    class="card-img-top img-fluid rounded-5" 
+                    style="max-width: 500px; max-height: 250px; width: auto; height: 100%;" 
+                    src="{{ association.logo.url }}" 
+                    alt="{{ association.associationname }} Logo">
+                </div>
+                {% csrf_token %}
+                <div class="form-group text-center pt-3" style="height:150px;">
+                    <div class="my-3">
+                        <div class="row justify-content-center">
+                            <div class="col-4">
+                                <label for="{{ img_form.logo.id_for_label }}" class="custom-file-button col-12 rounded-pill bg-dark">
+                                    Choisir une image
+                                </label>
+                                <input type="file" class="custom-file-input" name="{{ img_form.logo.name }}" id="{{ img_form.logo.id_for_label }}" accept="image/*">
+                            </div>
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-dark col-12 rounded-pill" name="submit_logo"  style="font-family: Montserrat, arial, sans-serif; height:40px;">Valider l'image de profil</button>
+                            </div>
                         </div>
                     </div>
+                    <button type="submit" class="col-4 btn btn-danger rounded-pill" name="delete_logo"  style="font-family: Montserrat, arial, sans-serif; height:40px;">Supprimer l'image</button>
                 </div>
-            {% endfor %}
-            <div class="row">
-                <div class="col-12 py-2 text-center">
-                    <button type="submit" class="btn btn-primary text-center">Modifier l'association</button>
+            </form>
+        </div>
+
+        <div class="row justify-content-center">
+            <form class="col-8 border rounded-4 border-5 mt-5" method="post" enctype="multipart/form-data">
+                <h3 class="text-center text-primary py-3">Information générale de l'association</h3>
+                {% csrf_token %}
+                {% for field in association_form %}
+                    <div class="form-group">
+                        <div class="row justify-content-center" style="font-weight:bold;">
+                            <div class="col-md-4 col-8 py-2 text-center">
+                                <label class="text-dark" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            </div>
+                            <div class="col-md-4 col-8 py-2 text-center border-0">
+                                {{ field }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="col-12 py-5 text-center">
+                        <button type="submit" class="btn btn-primary text-center rounded-pill" style="font-family: Montserrat, arial, sans-serif;">Modifier l'association</button>
+                    </div>
                 </div>
-            </div>
             </form>
         </div>
     </section>

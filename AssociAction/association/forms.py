@@ -33,14 +33,13 @@ class AssociationCreateForm(forms.ModelForm):
 class AssociationUpdateForm(forms.ModelForm):
     class Meta:
         model = Association
-        fields = ['associationname', 'email', 'acronym', 'phone_number', 'description', 'logo', 'siret_number']
+        fields = ['associationname', 'email', 'acronym', 'phone_number', 'description', 'siret_number']
         labels = {
             'associationname': "Nom de l'association",
             'acronym': 'Acronyme',
             'phone_number': 'Numéro de téléphone',
             'email': 'Adresse e-mail',
             'description': 'Description',
-            'logo': "Logo de l'association",
             'siret_number': "Numéro de SIRET",
         }
         widgets = {
@@ -49,16 +48,10 @@ class AssociationUpdateForm(forms.ModelForm):
             'acronym': forms.TextInput(),
             'phone_number': forms.TextInput(),
             'description': forms.TextInput(),
-            'logo': forms.ClearableFileInput(),
         }
 
-class AskAssociationRights(forms.Form):
-    content = forms.CharField(label='Contenu de la demande  :', widget=forms.Textarea)
-    association_already_in_app = forms.BooleanField(
-        label="Mon association est déjà dans l'application(Cochez la case si c'est le cas).",
-        required=False
-    )
-    association_name = forms.CharField(
-        label="Nom de mon association (si elle est déjà dans l'application)",
-        required=False
-    )
+class AssociationImageUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Association
+        fields = ['logo',]
+        labels = {'logo': 'logo',}

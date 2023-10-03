@@ -2,22 +2,6 @@
 {% load static %}
 
 {% block content %}  
-<style>
-    /* Custom style for the file download button */
-    .custom-file-input {
-        display: none;
-    }
-    
-    /* Your personalized style for the download button */
-    .custom-file-button {
-        background-color: #333;
-        color: white;
-        padding: 8px 12px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-</style>
 <main>
     <div class="container mt-4">
         <div class="row justify-content-center">
@@ -49,11 +33,11 @@
                                                 <input type="file" class="custom-file-input" name="{{ img_form.user_img.name }}" id="{{ img_form.user_img.id_for_label }}" accept="image/*">
                                             </div>
                                             <div class="col-4">
-                                                <button type="submit" class="btn btn-dark col-12 rounded-pill" name="submit_image"style="height:40px;">Valider l'image de profil</button>
+                                                <button type="submit" class="btn btn-dark col-12 rounded-pill" name="submit_image" style="height:40px;">Valider l'image de profil</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="col-4 btn btn-danger rounded-pill" name="delete_image" style="height:40px;">Supprimer l'image</button>
+                                    <button type="submit" class="col-4 btn btn-danger rounded-pill" name="delete_image" style="font-family: Montserrat, arial, sans-serif; height:40px;">Supprimer l'image</button>
                                 </div>
                             </form>
                         </div>
@@ -67,9 +51,9 @@
                                 <h3 class="text-center text-primary">Informations Générales</h3>
                                 <p class="text-center text-secondary">Modifiez ou remplissez les champs libres de votre profil</p>
                                 {% for field in user_form.visible_fields %}
-                                <div class="form-group text-center ">
+                                <div class="form-group text-center">
                                     <label for="{{ field.id_for_label }}" class="mb-3 pt-2" style="font-weight:bold;">{{ field.label }}</label>
-                                    <div class='text-center'>{{ field }}</div>                                    
+                                    <div class='text-center'>{{ field }}</div>
                                     {% if field.errors %}
                                     <div class="invalid-feedback">
                                         {% for error in field.errors %}
@@ -107,8 +91,8 @@
             </div>
         </div>
         <div class="row justify-content-center my-5">
-            <div class="col-3 mb-5">
-                <a href="{% url 'profile' %}" class="btn btn-primary rounded-pill">Retour à la page de profil</a>
+            <div class="col-3 text-center mb-5">
+                <a href="{% url 'profile' %}" class="btn btn-primary rounded-pill" style="font-family: Montserrat, arial, sans-serif;">Retour à la page de profil</a>
             </div>
         </div>
     </div>

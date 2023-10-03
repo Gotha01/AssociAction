@@ -92,3 +92,6 @@ class AddressUpdateForm(forms.ModelForm):
             'addresslineone': 'Adresse (ligne 1) *',
             'addresslinetwo': 'Adresse (ligne 2)',
         }
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
