@@ -2,17 +2,9 @@
 {% load static %}
 
 {% block content %}
+
 {% include 'general_views/search.html' %}
 <main>
-    {% if messages %}
-    <div class="messages">
-      {% for message in messages %}
-      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-        {{ message }}
-      </div>
-      {% endfor %}
-    </div>
-    {% endif %}
     <section 
     class="container-fluid"
     style="position:relative; top:-100px">

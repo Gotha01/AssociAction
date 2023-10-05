@@ -22,13 +22,13 @@
                   style="max-width: 500px; max-height: 250px; width: auto; height: 100%;" 
                   src="{{ association.logo.url }}" 
                   alt="{{ association.associationname }} Logo">
-          {% else %}
+              {% else %}
               <img 
                   class="card-img-top img-fluid rounded-5" 
                   style="max-width: 500px; max-height: 250px; width: auto; height: 100%;" 
                   src="{% static 'img/asso_sans_image.png' %}" 
                   alt="{{ association.associationname }} Logo">
-          {% endif %}
+              {% endif %}
             </div>
           </div>
           {% if director or admin or member %}

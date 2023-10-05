@@ -10,7 +10,15 @@ class EventForm(forms.ModelForm):
             'date': forms.DateInput(attrs={'type': 'date',}),
         }
 
-class EventAddressForm(forms.ModelForm):
+class EventFormUpdate(forms.ModelForm):
     class Meta:
-        model = EventAddress
-        fields = ['address']
+        model = Event
+        fields = ['event_name', 'date', 'description']
+        labels = {
+            "event_name" : "Nom de l'évènement",
+            "date": "Date",
+            "description": "Description",
+        }
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date',}),
+        }

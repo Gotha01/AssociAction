@@ -3,9 +3,11 @@
     <div class="row">
         <div class="card-body">
             {% if next_event.id != None %}
-            <a style='text-decoration:none' href={% url 'event_detail' association_id=association.id event_id=next_event.id %}>
+            <a style='text-decoration:none' href={% url 'event_detail' association_id=association.id event_id=next_event.id%}>
                 <div class="card border-2" style="background-color:#E7E8E9;">
-                    <div class="card-header pb-3" style="font-weight:bold; font-size:24px; background-color:#aaa;">
+                    <div 
+                        class="card-header"
+                        style="font-weight:bold; font-size:22px; background-color:#aaa; font-family:Montserrat, arial, sans-serif;">
                         Prochain Évènement
                     </div>
                     <div class="card-body">

@@ -38,15 +38,18 @@ urlpatterns = [
     path('profile/', authv.profile_view, name='profile'),
     path('profile_update/', authv.update_profile_view, name='update_profile'),
     #Association urls
-    path('association/<int:association_id>/', assoviews.association_detail, name='association_detail'),
     path('association_create/', assoviews.create_association, name='create_association'),
+    path('association/<int:association_id>/', assoviews.association_detail, name='association_detail'),
     path('association/<int:association_id>/update', assoviews.update_association, name='update_association'),
-    path('association_address/<int:association_id>/', assoviews.association_address, name="association_address"),
+    path('association/<int:association_id>/association_address/', assoviews.association_address, name="association_address"),
     path('association_list/', assoviews.association_list, name='association_list'),
-    #Events urls
-    path('association/<int:association_id>/create_event/', eviews.create_event, name='create_event'),#1
-    path('association/<int:association_id>/association_events/', eviews.association_events, name='all_asso_event'),#2
-    path('association/<int:association_id>/association_events/<int:event_id>', eviews.event_detail, name='event_detail'),#3
+    #Events url
+    path('association/<int:association_id>/create_event/', eviews.create_event, name='create_event'),
+    path('association/<int:association_id>/association_events/', eviews.association_events, name='all_asso_event'),
+    path('association/<int:association_id>/association_events/<int:event_id>', eviews.event_detail, name='event_detail'),
+    path('association/<int:association_id>/association_events/<int:event_id>/delete', eviews.event_delete, name='event_delete'),
+    path('association/<int:association_id>/association_events/<int:event_id>/update', eviews.event_update, name='event_update'),
+    path('association/<int:association_id>/association_events/<int:event_id>/address', eviews.event_address, name='event_address')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

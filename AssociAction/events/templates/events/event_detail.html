@@ -1,25 +1,47 @@
 {% extends "general_views/base.html" %}
+{% load static %}
 
 {% block content %}
 <main>
   <section class="container">
     <div class="row justify-content-center">
       <div class="col-md-8 py-5">
-        <div class="card border rounded-4 border-5 text-center">
-          <h1>{{ event.event_name }}</h1>
-          <p class="card-text">Date : {{ event.date }}</p>
-          <p>Description : {{ event.description }}</p>
+        <div class="card border rounded-4 border-5 border-secondary text-center py-3"style="background-color:#ccc">
+          <h1 class="pb-2 text-primary">{{ event.event_name }}</h1>
+          <h4 style="color:#333;font-weight:bold" class="card-text py-2">Date : <span style="color: #777">{{ event.date }}</span></h4>
+          <h4 style="color:#333;font-weight:bold" class="card-text py-2">Description : <span style="color: #777">{{ event.description }}</span></h4>
+          {% if address %}
+            <h4 style="color:#333;font-weight:bold" class="card-text py-2">Address : <span style="color: #777">{{ address }}</span></h4>
+          {% endif %}
+          {% if user_resp %}
+          <div class="col-12 text-center">
+            <a 
+              href="{% url 'event_update' association_id=association.id event_id=event.id %}" 
+              class="btn btn-primary my-2 rounded-pill" 
+              style="font-family: Montserrat, arial, sans-serif;">
+              Modifier l'évènement
+            </a>
+          </div>
+          <div class="col-12 text-center">
+            <a
+              href="{% url 'event_delete' association_id=association.id event_id=event.id %}" 
+              class="btn btn-danger my-2 rounded-pill" 
+              style="font-family: Montserrat, arial, sans-serif;">
+              Supprimer l'évènement
+          </a>
+          </div>
+          {% endif %}
         </div>
       </div>
     </div>
-      <div class='row justify-content-around'>
-        <div class="col-6 text-center">
-          <a href="{% url 'association_detail' association_id=association_id %}" class="btn btn-dark my-4 rounded-pill" style="font-family: Montserrat, arial, sans-serif;font-weight: bold">Retourner à la page de l'assocation</a>
-        </div>
-        <div class="col-6 text-center">
-          <a href="{% url 'home' %}" class="btn btn-dark my-4 rounded-pill" style="font-family: Montserrat, arial, sans-serif;font-weight: bold">Retourner à la page d'accueil</a>
-        </div>
-      </div>  
+    <div class='row justify-content-around'>
+      <div class="col-6 text-center">
+        <a href="{% url 'association_detail' association_id=association.id %}" class="btn btn-primary my-2 rounded-pill" style="font-family: Montserrat, arial, sans-serif;">Retourner à la page de l'assocation</a>
+      </div>
+      <div class="col-6 text-center">
+        <a href="{% url 'home' %}" class="btn btn-primary my-2 rounded-pill" style="font-family: Montserrat, arial, sans-serif">Retourner à la page d'accueil</a>
+      </div>
+    </div>  
   </section>
 </main>
 {% endblock %}
