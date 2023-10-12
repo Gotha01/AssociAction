@@ -11,14 +11,19 @@ from association.models import UserRoleAssociation
 
 User = get_user_model()
 
+
 class RegisterView(View):
     register_form_class = fms.RegistrationForm
     template_name = "authentication/register.html"
 
     def get(self, request):
         register_form = self.register_form_class()
-        return render(request, self.template_name, {'register_form': register_form})
-    
+        return render(
+            request,
+            self.template_name,
+            {'register_form': register_form}
+        )
+
     def post(self, request):
         form = self.register_form_class(request.POST)
         message = ''
@@ -26,7 +31,8 @@ class RegisterView(View):
             try:
                 user = form.save()
                 if user is not None:
-                    message = 'Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.'
+                    message = 'Votre compte a été créé avec succès.'
+                    ' Vous pouvez maintenant vous connecter.'
                     request.session['registration_message'] = message
                     return redirect('login')
             except ValueError as e:
@@ -38,14 +44,17 @@ class RegisterView(View):
             'register_form': form,
         })
 
+
 class LoginPageView(View):
     login_form_class = fms.LoginForm
     template_name = "authentication/login.html"
-    
+
     def get(self, request):
         login_form = self.login_form_class()
-        message = ''
-        registration_message = request.session.pop('registration_message', None)
+        registration_message = request.session.pop(
+            'registration_message',
+            None
+        )
         return render(request, self.template_name, {
             'login_form': login_form,
             'registration_message': registration_message,
@@ -56,10 +65,10 @@ class LoginPageView(View):
         message = ''
 
         if login_form.is_valid():
-            try: 
+            try:
                 user = authenticate(
-                    username = login_form.cleaned_data['username'],
-                    password = login_form.cleaned_data['password'],
+                    username=login_form.cleaned_data['username'],
+                    password=login_form.cleaned_data['password'],
                 )
                 if user is not None:
                     login(request, user)
@@ -74,15 +83,17 @@ class LoginPageView(View):
             'message': message,
         })
 
+
 @login_required
 def profile_view(request):
     user = request.user
     try:
-        roles = UserRoleAssociation.objects.filter(user=user)
-    except roles.DoesNotExist:
-        roles = None
-    context = {'user':user,'roles':roles}
+        user_roles = UserRoleAssociation.objects.filter(user=user)
+    except user_roles.DoesNotExist:
+        user_roles = None
+    context = {'user': user, 'roles': user_roles}
     return render(request, 'authentication/user_profile.html', context)
+
 
 @login_required
 def update_profile_view(request):
@@ -96,8 +107,12 @@ def update_profile_view(request):
     address_form = fms.AddressUpdateForm(instance=user_address)
 
     if request.method == 'POST':
-        img_form = fms.UserImageUpdateForm(request.POST, request.FILES, instance=request.user)
-        
+        img_form = fms.UserImageUpdateForm(
+            request.POST,
+            request.FILES,
+            instance=request.user
+        )
+
         if 'save_address_form' in request.POST:
             address_form = fms.AddressUpdateForm(request.POST)
             if address_form.is_valid():
@@ -107,48 +122,63 @@ def update_profile_view(request):
                         postalcode=user_address.postalcode,
                         cityname=user_address.cityname,
                         ).delete()
-                    messages.success(request, "Adresse modifiée avec succès")
+                    messages.success(
+                        request,
+                        "Adresse modifiée avec succès"
+                    )
                 else:
-                    messages.success(request, "Adresse enregistrée avec succès")
+                    messages.success(
+                        request,
+                        "Adresse enregistrée avec succès"
+                    )
                 new_address = address_form.save()
                 user_address, _ = UserAddress.objects.update_or_create(
-                    user = user,
+                    user=user,
                     defaults={
-                        'user':user, 
-                        'address':new_address
+                        'user': user,
+                        'address': new_address
                     }
                 )
                 return redirect('profile')
-            
+
         elif 'submit_image' in request.POST:
             if img_form.is_valid():
                 img_form.save()
                 messages.success(request, 'Image enrgistrée avec succès')
                 return redirect('profile')
-            
+
         elif "delete_image" in request.POST:
-            user_profile = CustomUser.objects.get(username=request.user.username)
+            user_profile = CustomUser.objects.get(
+                username=request.user.username
+            )
             image_field_file = user_profile.user_img
             if image_field_file:
                 image_field_file.delete()
                 user_profile.user_img = None
                 user_profile.save()
-                messages.success(request, "Image de profil supprimée avec succès.")
+                messages.success(
+                    request,
+                    "Image de profil supprimée avec succès."
+                )
                 return redirect('profile')
-            
+
         elif 'save_user_form' in request.POST:
-            user_form = fms.UserProfileUpdateForm(request.POST, instance=request.user)
+            user_form = fms.UserProfileUpdateForm(
+                request.POST,
+                instance=request.user
+            )
             if user_form.is_valid():
                 user_form.save()
                 messages.success(request, "Informations modifiées")
                 return redirect('profile')
-            
+
     return render(request, 'authentication/user_profile_update.html', {
         'user_form': user_form,
         'img_form': img_form,
         'address_form': address_form,
     })
-    
+
+
 @login_required
 def logout_view(request):
     logout(request)

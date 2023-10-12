@@ -1,11 +1,19 @@
 from django.contrib import admin
-from .models import Association, Sector, UserRoleAssociation, AssociationSector, AssociationAddress, Role
+from .models import (
+    Association,
+    Sector,
+    UserRoleAssociation,
+    AssociationSector,
+    AssociationAddress,
+    Role
+)
 
 # Register your models here.
 
+
 class AssociationAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 
+        'id',
         'associationname',
         'acronym',
         'phone_number',
@@ -25,6 +33,7 @@ class AssociationAdmin(admin.ModelAdmin):
     )
     list_per_page = 25
 
+
 class SectorAdmin(admin.ModelAdmin):
     list_display = (
         'sectorname',
@@ -37,6 +46,7 @@ class SectorAdmin(admin.ModelAdmin):
         'sectorname',
     )
     list_per_page = 25
+
 
 class UserRoleAssociationAdmin(admin.ModelAdmin):
     list_display = (
@@ -62,6 +72,7 @@ class UserRoleAssociationAdmin(admin.ModelAdmin):
     )
     list_per_page = 25
 
+
 class AssociationSectorAdmin(admin.ModelAdmin):
     list_display = (
         'association',
@@ -81,12 +92,14 @@ class AssociationSectorAdmin(admin.ModelAdmin):
     )
     list_per_page = 25
 
+
 class AssociationAddressAdmin(admin.ModelAdmin):
     list_display = (
         'association',
         'address'
     )
     list_per_page = 25
+
 
 admin.site.register(Association, AssociationAdmin)
 admin.site.register(Sector, SectorAdmin)

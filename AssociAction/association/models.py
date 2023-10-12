@@ -8,12 +8,13 @@ class Sector(models.Model):
     """Class to define associative sectors"""
     sectorname = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=150, null=True, blank=True)
-    
+
     def __str__(self):
         return self.sectorname
 
     class Meta:
         db_table = 'sector'
+
 
 class Association(models.Model):
     """Class for association information"""
@@ -31,18 +32,19 @@ class Association(models.Model):
             MaxValueValidator(99999999999999),
         ]
     )
-    
+
     def __str__(self):
         return self.associationname
-    
+
     def get_sector(self):
         return AssociationSector.objects.get(association=self).sector
-    
+
     def get_address(self):
         return AssociationAddress.objects.get(association=self).address
 
     class Meta:
         db_table = 'association'
+
 
 class AssociationAddress(models.Model):
     """Class defining association's address"""
@@ -51,16 +53,18 @@ class AssociationAddress(models.Model):
 
     class Meta:
         db_table = 'association_address'
-        unique_together =('association', 'address')
+        unique_together = ('association', 'address')
+
 
 class AssociationSector(models.Model):
     """Class defining a user's role in an association"""
     association = models.ForeignKey(Association, on_delete=models.CASCADE)
     sector = models.ForeignKey(Sector, on_delete=models.CASCADE)
-    
+
     class Meta:
         db_table = 'sector_association'
-        unique_together =('association', 'sector')
+        unique_together = ('association', 'sector')
+
 
 class Role(models.Model):
     """Class defining all possible user roles"""
@@ -72,6 +76,7 @@ class Role(models.Model):
 
     def __str__(self):
         return self.rolename
+
 
 class UserRoleAssociation(models.Model):
     """Class used to define the user's role in the association"""

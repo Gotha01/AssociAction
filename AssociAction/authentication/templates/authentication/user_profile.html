@@ -60,7 +60,11 @@
                                     {% for role in roles %}
                                         <div class="col-12 py-2">
                                             <label>Role :</label>
-                                            {{ role.role }} de l'association '{{ role.association }}'
+                                            {% if role.role.rolename == 'Director' %}
+                                            Directeur
+                                            {% elif role.role.rolename == 'Admin' %}
+                                            Administrateur
+                                            {% endif %} de l'association '{{ role.association }}'
                                         </div>
                                     {% endfor %}
                                 {% endif %}

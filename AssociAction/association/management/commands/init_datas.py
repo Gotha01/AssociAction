@@ -1,7 +1,13 @@
 from django.core.management.base import BaseCommand
 
-from association.models import Sector, Association, AssociationAddress, AssociationSector
+from association.models import (
+    Sector,
+    Association,
+    AssociationAddress,
+    AssociationSector
+)
 from authentication.models import CustomUser, Address, UserAddress
+
 
 class Command(BaseCommand):
     help = 'Initialisez des données dans votre application.'
@@ -94,37 +100,36 @@ class Command(BaseCommand):
             cityname='Bordeaux',
             addresslineone='8 Rue Lebrun'
         )
-        
 
         # créer des utilisateurs
         lambda_user, created1 = CustomUser.objects.get_or_create(
-            first_name = 'Julien',
-            last_name = 'Deschamps',
-            username = 'Juju',
-            email = 'ju-dech@gmail.com',
-            phone_number = '0606606066',
+            first_name='Julien',
+            last_name='Deschamps',
+            username='Juju',
+            email='ju-dech@gmail.com',
+            phone_number='0606606066',
         )
         if created1:
             lambda_user.set_password('ReallygoodPassword1')
             lambda_user.save()
 
         admin_assoc_user, created2 = CustomUser.objects.get_or_create(
-            first_name = 'Jean',
-            last_name = 'Plisson',
-            username = 'JP75',
-            email = 'jean-pli@hotmail.fr',
-            phone_number = '0789898989',
+            first_name='Jean',
+            last_name='Plisson',
+            username='JP75',
+            email='jean-pli@hotmail.fr',
+            phone_number='0789898989',
         )
         if created2:
             admin_assoc_user.set_password('ReallygoodPassword2')
             admin_assoc_user.save()
 
         director_user, created3 = CustomUser.objects.get_or_create(
-            first_name = 'Chloé',
-            last_name = 'Villena',
-            username = 'Clo33',
-            email = 'cloclo33@orange.fr',
-            phone_number = '0606606066',
+            first_name='Chloé',
+            last_name='Villena',
+            username='Clo33',
+            email='cloclo33@orange.fr',
+            phone_number='0606606066',
         )
         if created3:
             director_user.set_password('ReallygoodPassword3')
@@ -151,7 +156,7 @@ class Command(BaseCommand):
             association=association5,
             address=address5
         )
-        
+
         # Create user addresses
         rel_user1_address3, _ = UserAddress.objects.get_or_create(
             user=lambda_user,

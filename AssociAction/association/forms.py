@@ -7,9 +7,18 @@ class AssociationCreateForm(forms.ModelForm):
         queryset=Sector.objects.all(),
         widget=forms.Select(attrs={'style': ''})
     )
+
     class Meta:
         model = Association
-        fields = ['associationname', 'sector', 'email', 'acronym', 'phone_number', 'description', 'logo']
+        fields = [
+            'associationname',
+            'sector',
+            'email',
+            'acronym',
+            'phone_number',
+            'description',
+            'logo'
+        ]
         labels = {
             'associationname': "Nom de l'association",
             'acronym': 'Acronyme',
@@ -17,7 +26,7 @@ class AssociationCreateForm(forms.ModelForm):
             'email': 'Adresse e-mail',
             'description': 'Description',
             'logo': "Logo de l'association",
-            'siret_number':"Numéro de SIRET",
+            'siret_number': "Numéro de SIRET",
             'sector': "Secteur associatif",
 
         }
@@ -30,10 +39,18 @@ class AssociationCreateForm(forms.ModelForm):
             'logo': forms.ClearableFileInput(attrs={'required': 'required'}),
         }
 
+
 class AssociationUpdateForm(forms.ModelForm):
     class Meta:
         model = Association
-        fields = ['associationname', 'email', 'acronym', 'phone_number', 'description', 'siret_number']
+        fields = [
+            'associationname',
+            'email',
+            'acronym',
+            'phone_number',
+            'description',
+            'siret_number'
+        ]
         labels = {
             'associationname': "Nom de l'association",
             'acronym': 'Acronyme',
@@ -50,8 +67,9 @@ class AssociationUpdateForm(forms.ModelForm):
             'description': forms.TextInput(),
         }
 
+
 class AssociationImageUpdateForm(forms.ModelForm):
     class Meta:
         model = Association
-        fields = ['logo',]
-        labels = {'logo': 'logo',}
+        fields = ['logo']
+        labels = {'logo': 'logo'}
