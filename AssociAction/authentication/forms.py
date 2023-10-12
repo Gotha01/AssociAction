@@ -117,6 +117,7 @@ class UserProfileUpdateForm(forms.ModelForm):
         widget=forms.HiddenInput,
         initial='save_user_form',
     )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -124,7 +125,7 @@ class UserProfileUpdateForm(forms.ModelForm):
 class UserImageUpdateForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['user_img',]
+        fields = ['user_img']
         labels = {'user_img': 'Image de profil'}
 
 
